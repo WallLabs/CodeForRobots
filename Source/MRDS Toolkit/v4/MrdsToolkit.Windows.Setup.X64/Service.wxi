@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Include xmlns="http://schemas.microsoft.com/wix/2006/wi"
+     xmlns:netfx='http://schemas.microsoft.com/wix/NetFxExtension'
+     xmlns:util='http://schemas.microsoft.com/wix/UtilExtension'>
+
+  <Fragment>
+
+    <!-- Service Feature-->
+    <Feature Id='ServiceFeature' Title='Service' Level='1'>
+      <ComponentRef Id='ServiceComponent' />
+    </Feature>
+
+    <!-- Service Component -->
+    <Component Id='ServiceComponent' Guid='{4D254044-DB5F-4C19-A573-D433D81582B8}' Directory='INSTALLLOCATION'>
+
+      <!-- Create folder on install, remove on uninstall -->
+      <CreateFolder Directory='INSTALLLOCATION' />
+      <RemoveFolder Id='RemoveINSTALLLOCATION' Directory='INSTALLLOCATION' On='uninstall' />
+
+      <!-- Service files -->
+      <File Id='ServiceExeFile' Name='$(var.MrdsToolkit.Windows.ServiceHost.TargetFileName)' Source='$(var.MrdsToolkit.Windows.ServiceHost.TargetPath)' KeyPath='yes' Checksum='yes' />
+      <File Id='ServiceConfigFile' Name='$(var.MrdsToolkit.Windows.ServiceHost.TargetFileName).config' Source='$(var.MrdsToolkit.Windows.ServiceHost.TargetDir)$(var.MrdsToolkit.Windows.ServiceHost.TargetFileName).config' Checksum='yes' />
+
+      <!-- Dependency files -->
+      <File Id='Service$(var.MrdsToolkit.Windows.Services.TargetName)File' Name='$(var.MrdsToolkit.Windows.Services.TargetFileName)' Source='$(var.MrdsToolkit.Windows.Services.TargetPath)' Checksum='yes' />
+      <File Id='ServiceMicrosoftCcrAdaptersIOFile' Name='Microsoft.Ccr.Adapters.IO.dll' Source='$(var.SolutionDir)Dependencies\Microsoft\Robotics\v4.0\Microsoft.Ccr.Adapters.IO.dll' Checksum='yes' />
+      <File Id='ServiceMicrosoftCcrAdaptersWinFormsFile' Name='Microsoft.Ccr.Adapters.WinForms.dll' Source='$(var.SolutionDir)Dependencies\Microsoft\Robotics\v4.0\Microsoft.Ccr.Adapters.WinForms.dll' Checksum='yes' />
+      <File Id='ServiceMicrosoftCcrAdaptersWpfFile' Name='Microsoft.Ccr.Adapters.Wpf.dll' Source='$(var.SolutionDir)Dependencies\Microsoft\Robotics\v4.0\Microsoft.Ccr.Adapters.Wpf.dll' Checksum='yes' />
+      <File Id='ServiceMicrosoftCcrCoreFile' Name='Microsoft.Ccr.Core.dll' Source='$(var.SolutionDir)Dependencies\Microsoft\Robotics\v4.0\Microsoft.Ccr.Core.dll' Checksum='yes' />
+      <File Id='ServiceMicrosoftDssBaseFile' Name='Microsoft.Dss.Base.dll' Source='$(var.SolutionDir)Dependencies\Microsoft\Robotics\v4.0\Microsoft.Dss.Base.dll' Checksum='yes' />
+      <File Id='ServiceMicrosoftDssDiagnosticsFile' Name='Microsoft.Dss.Diagnostics.dll' Source='$(var.SolutionDir)Dependencies\Microsoft\Robotics\v4.0\Microsoft.Dss.Diagnostics.dll' Checksum='yes' />
+      <File Id='ServiceMicrosoftDssEnvironmentFile' Name='Microsoft.Dss.Environment.dll' Source='$(var.SolutionDir)Dependencies\Microsoft\Robotics\v4.0\Microsoft.Dss.Environment.dll' Checksum='yes' />
+      <File Id='ServiceMicrosoftDssRuntimeFile' Name='Microsoft.Dss.Runtime.dll' Source='$(var.SolutionDir)Dependencies\Microsoft\Robotics\v4.0\Microsoft.Dss.Runtime.dll' Checksum='yes' />
+      <File Id='ServiceMicrosoftDssRuntimeProxyFile' Name='Microsoft.Dss.Runtime.proxy.dll' Source='$(var.SolutionDir)Dependencies\Microsoft\Robotics\v4.0\Microsoft.Dss.Runtime.proxy.dll' Checksum='yes' />
+      <File Id='ServiceMicrosoftDssRuntimeTransformFile' Name='Microsoft.Dss.Runtime.transform.dll' Source='$(var.SolutionDir)Dependencies\Microsoft\Robotics\v4.0\Microsoft.Dss.Runtime.transform.dll' Checksum='yes' />
+      <File Id='ServiceMicrosoftDssToolsFile' Name='Microsoft.Dss.Tools.dll' Source='$(var.SolutionDir)Dependencies\Microsoft\Robotics\v4.0\Microsoft.Dss.Tools.dll' Checksum='yes' />
+      
+      
+      <!-- Service -->
+      <ServiceControl Id='ServiceControlBefore' Name='MrdsServiceHost' Stop='uninstall' Remove='install' Wait='yes' />
+      <ServiceInstall Id='ServiceInstall' Type='ownProcess' Vital='yes' Name='MrdsServiceHost' DisplayName='MRDS Service Host'
+                      Description ='Hosts Microsoft Robotics Developer Studio DSS services which run on this node.' 
+                      Start='disabled' Account='NT AUTHORITY\NetworkService'
+                      ErrorControl='ignore' Interactive='yes' />
+      <ServiceControl Id='ServiceControlAfter' Name='MrdsServiceHost' Remove='uninstall' Wait='yes' />
+
+      <!-- Event Log -->
+      <util:EventSource Log='Application' Name='MRDS Service Host' SupportsErrors='yes' SupportsInformationals='yes' SupportsWarnings='yes'
+                        EventMessageFile='[$(var.NetFrameworkRootDir)]EventLogMessages.dll' />
+
+    </Component>
+    
+  </Fragment>
+</Include>

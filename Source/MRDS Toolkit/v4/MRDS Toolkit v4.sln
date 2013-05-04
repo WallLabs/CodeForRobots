@@ -1,0 +1,151 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A6DE53D1-C91A-4CF0-860D-3FBBFDCD5795}"
+	ProjectSection(SolutionItems) = preProject
+		Build.cmd = Build.cmd
+		Code Analysis Dictionary.xml = Code Analysis Dictionary.xml
+		InstallServer.cmd = InstallServer.cmd
+		MRDS Toolkit.snk = MRDS Toolkit.snk
+		Release.cmd = Release.cmd
+		StartServer.cmd = StartServer.cmd
+		StopServer.cmd = StopServer.cmd
+		UninstallServer.cmd = UninstallServer.cmd
+		Version.cmd = Version.cmd
+		Version.ps1 = Version.ps1
+		Version.txt = Version.txt
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Dependencies", "Dependencies", "{70EF24B2-B1CB-4085-BAF3-5A3F24B08492}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Microsoft", "Microsoft", "{B3D06457-EB24-4EC5-8C06-5DFF43CA4A43}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Robotics", "Robotics", "{FB9CC949-1EAC-42C5-8AEC-8F63B6B2CF2E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "v4.0", "v4.0", "{550077A3-6163-4435-A84B-3DBD8424801D}"
+	ProjectSection(SolutionItems) = preProject
+		Dependencies\Microsoft\Robotics\v4.0\Microsoft.Ccr.Adapters.IO.dll = Dependencies\Microsoft\Robotics\v4.0\Microsoft.Ccr.Adapters.IO.dll
+		Dependencies\Microsoft\Robotics\v4.0\Microsoft.Ccr.Adapters.WinForms.dll = Dependencies\Microsoft\Robotics\v4.0\Microsoft.Ccr.Adapters.WinForms.dll
+		Dependencies\Microsoft\Robotics\v4.0\Microsoft.Ccr.Adapters.Wpf.dll = Dependencies\Microsoft\Robotics\v4.0\Microsoft.Ccr.Adapters.Wpf.dll
+		Dependencies\Microsoft\Robotics\v4.0\Microsoft.Ccr.Core.dll = Dependencies\Microsoft\Robotics\v4.0\Microsoft.Ccr.Core.dll
+		Dependencies\Microsoft\Robotics\v4.0\Microsoft.Dss.Base.dll = Dependencies\Microsoft\Robotics\v4.0\Microsoft.Dss.Base.dll
+		Dependencies\Microsoft\Robotics\v4.0\Microsoft.Dss.Diagnostics.dll = Dependencies\Microsoft\Robotics\v4.0\Microsoft.Dss.Diagnostics.dll
+		Dependencies\Microsoft\Robotics\v4.0\Microsoft.Dss.Environment.dll = Dependencies\Microsoft\Robotics\v4.0\Microsoft.Dss.Environment.dll
+		Dependencies\Microsoft\Robotics\v4.0\Microsoft.Dss.Runtime.dll = Dependencies\Microsoft\Robotics\v4.0\Microsoft.Dss.Runtime.dll
+		Dependencies\Microsoft\Robotics\v4.0\Microsoft.Dss.Runtime.proxy.dll = Dependencies\Microsoft\Robotics\v4.0\Microsoft.Dss.Runtime.proxy.dll
+		Dependencies\Microsoft\Robotics\v4.0\Microsoft.Dss.Runtime.transform.dll = Dependencies\Microsoft\Robotics\v4.0\Microsoft.Dss.Runtime.transform.dll
+		Dependencies\Microsoft\Robotics\v4.0\Microsoft.Dss.Tools.dll = Dependencies\Microsoft\Robotics\v4.0\Microsoft.Dss.Tools.dll
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "EN", "EN", "{70B7BDDC-D020-45CE-830E-9417038AA2E5}"
+	ProjectSection(SolutionItems) = preProject
+		Dependencies\Microsoft\Robotics\v4.0\EN\Microsoft.Ccr.Adapters.IO.xml = Dependencies\Microsoft\Robotics\v4.0\EN\Microsoft.Ccr.Adapters.IO.xml
+		Dependencies\Microsoft\Robotics\v4.0\EN\Microsoft.Ccr.Adapters.WinForms.xml = Dependencies\Microsoft\Robotics\v4.0\EN\Microsoft.Ccr.Adapters.WinForms.xml
+		Dependencies\Microsoft\Robotics\v4.0\EN\Microsoft.Ccr.Adapters.Wpf.xml = Dependencies\Microsoft\Robotics\v4.0\EN\Microsoft.Ccr.Adapters.Wpf.xml
+		Dependencies\Microsoft\Robotics\v4.0\EN\Microsoft.Ccr.Core.xml = Dependencies\Microsoft\Robotics\v4.0\EN\Microsoft.Ccr.Core.xml
+		Dependencies\Microsoft\Robotics\v4.0\EN\Microsoft.Dss.Base.xml = Dependencies\Microsoft\Robotics\v4.0\EN\Microsoft.Dss.Base.xml
+		Dependencies\Microsoft\Robotics\v4.0\EN\Microsoft.Dss.Environment.xml = Dependencies\Microsoft\Robotics\v4.0\EN\Microsoft.Dss.Environment.xml
+		Dependencies\Microsoft\Robotics\v4.0\EN\Microsoft.Dss.Runtime.proxy.xml = Dependencies\Microsoft\Robotics\v4.0\EN\Microsoft.Dss.Runtime.proxy.xml
+		Dependencies\Microsoft\Robotics\v4.0\EN\Microsoft.Dss.Runtime.xml = Dependencies\Microsoft\Robotics\v4.0\EN\Microsoft.Dss.Runtime.xml
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MrdsToolkit.Windows.Services", "MrdsToolkit.Windows.Services\MrdsToolkit.Windows.Services.csproj", "{D3DD465C-D228-4240-A2B9-18C98CE8E94A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MrdsToolkit.Windows.ServiceHost", "MrdsToolkit.Windows.ServiceHost\MrdsToolkit.Windows.ServiceHost.csproj", "{D2BBDD3F-F052-43BC-B4DB-C792703D8B54}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentation", "{C9E8ACA4-3B53-4563-9ACA-CF876733D9E1}"
+	ProjectSection(SolutionItems) = preProject
+		Documentation\MRDS Toolkit License.rtf = Documentation\MRDS Toolkit License.rtf
+		Documentation\MRDS Toolkit Release Notes.rtf = Documentation\MRDS Toolkit Release Notes.rtf
+	EndProjectSection
+EndProject
+Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "MrdsToolkit.Windows.Setup.X64", "MrdsToolkit.Windows.Setup.X64\MrdsToolkit.Windows.Setup.X64.wixproj", "{74785E3C-08AF-45DE-969E-9B8345E2DF16}"
+EndProject
+Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "MrdsToolkit.Windows.Setup.X86", "MrdsToolkit.Windows.Setup.X86\MrdsToolkit.Windows.Setup.X86.wixproj", "{45073B53-2399-49A0-943D-827AB14AAD3C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Images", "Images", "{84509CD6-A1AD-43B7-878C-75B93F499346}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Icons", "Icons", "{35A4403F-5009-4FD4-882F-5CBEFAD797F0}"
+	ProjectSection(SolutionItems) = preProject
+		Images\Icons\MRDS Toolkit.ico = Images\Icons\MRDS Toolkit.ico
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 5
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://tfs.codeplex.com/tfs/tfs28
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = MrdsToolkit.Windows.Services\\MrdsToolkit.Windows.Services.csproj
+		SccProjectName1 = MrdsToolkit.Windows.Services
+		SccLocalPath1 = MrdsToolkit.Windows.Services
+		SccProjectUniqueName2 = MrdsToolkit.Windows.ServiceHost\\MrdsToolkit.Windows.ServiceHost.csproj
+		SccProjectName2 = MrdsToolkit.Windows.ServiceHost
+		SccLocalPath2 = MrdsToolkit.Windows.ServiceHost
+		SccProjectUniqueName3 = MrdsToolkit.Windows.Setup.X64\\MrdsToolkit.Windows.Setup.X64.wixproj
+		SccProjectName3 = MrdsToolkit.Windows.Setup.X64
+		SccLocalPath3 = MrdsToolkit.Windows.Setup.X64
+		SccProjectUniqueName4 = MrdsToolkit.Windows.Setup.X86\\MrdsToolkit.Windows.Setup.X86.wixproj
+		SccProjectName4 = MrdsToolkit.Windows.Setup.X86
+		SccLocalPath4 = MrdsToolkit.Windows.Setup.X86
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|Mixed Platforms = Debug|Mixed Platforms
+		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
+		Release|Mixed Platforms = Release|Mixed Platforms
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D3DD465C-D228-4240-A2B9-18C98CE8E94A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D3DD465C-D228-4240-A2B9-18C98CE8E94A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D3DD465C-D228-4240-A2B9-18C98CE8E94A}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{D3DD465C-D228-4240-A2B9-18C98CE8E94A}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{D3DD465C-D228-4240-A2B9-18C98CE8E94A}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{D3DD465C-D228-4240-A2B9-18C98CE8E94A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D3DD465C-D228-4240-A2B9-18C98CE8E94A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D3DD465C-D228-4240-A2B9-18C98CE8E94A}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{D3DD465C-D228-4240-A2B9-18C98CE8E94A}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{D3DD465C-D228-4240-A2B9-18C98CE8E94A}.Release|x86.ActiveCfg = Release|Any CPU
+		{D2BBDD3F-F052-43BC-B4DB-C792703D8B54}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D2BBDD3F-F052-43BC-B4DB-C792703D8B54}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D2BBDD3F-F052-43BC-B4DB-C792703D8B54}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{D2BBDD3F-F052-43BC-B4DB-C792703D8B54}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{D2BBDD3F-F052-43BC-B4DB-C792703D8B54}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{D2BBDD3F-F052-43BC-B4DB-C792703D8B54}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D2BBDD3F-F052-43BC-B4DB-C792703D8B54}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D2BBDD3F-F052-43BC-B4DB-C792703D8B54}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{D2BBDD3F-F052-43BC-B4DB-C792703D8B54}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{D2BBDD3F-F052-43BC-B4DB-C792703D8B54}.Release|x86.ActiveCfg = Release|Any CPU
+		{74785E3C-08AF-45DE-969E-9B8345E2DF16}.Debug|Any CPU.ActiveCfg = Debug|x64
+		{74785E3C-08AF-45DE-969E-9B8345E2DF16}.Debug|Mixed Platforms.ActiveCfg = Debug|x64
+		{74785E3C-08AF-45DE-969E-9B8345E2DF16}.Debug|Mixed Platforms.Build.0 = Debug|x64
+		{74785E3C-08AF-45DE-969E-9B8345E2DF16}.Debug|x86.ActiveCfg = Debug|x64
+		{74785E3C-08AF-45DE-969E-9B8345E2DF16}.Release|Any CPU.ActiveCfg = Release|x64
+		{74785E3C-08AF-45DE-969E-9B8345E2DF16}.Release|Any CPU.Build.0 = Release|x64
+		{74785E3C-08AF-45DE-969E-9B8345E2DF16}.Release|Mixed Platforms.ActiveCfg = Release|x64
+		{74785E3C-08AF-45DE-969E-9B8345E2DF16}.Release|Mixed Platforms.Build.0 = Release|x64
+		{74785E3C-08AF-45DE-969E-9B8345E2DF16}.Release|x86.ActiveCfg = Release|x64
+		{45073B53-2399-49A0-943D-827AB14AAD3C}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{45073B53-2399-49A0-943D-827AB14AAD3C}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{45073B53-2399-49A0-943D-827AB14AAD3C}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{45073B53-2399-49A0-943D-827AB14AAD3C}.Debug|x86.ActiveCfg = Debug|x86
+		{45073B53-2399-49A0-943D-827AB14AAD3C}.Debug|x86.Build.0 = Debug|x86
+		{45073B53-2399-49A0-943D-827AB14AAD3C}.Release|Any CPU.ActiveCfg = Release|x86
+		{45073B53-2399-49A0-943D-827AB14AAD3C}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{45073B53-2399-49A0-943D-827AB14AAD3C}.Release|Mixed Platforms.Build.0 = Release|x86
+		{45073B53-2399-49A0-943D-827AB14AAD3C}.Release|x86.ActiveCfg = Release|x86
+		{45073B53-2399-49A0-943D-827AB14AAD3C}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{B3D06457-EB24-4EC5-8C06-5DFF43CA4A43} = {70EF24B2-B1CB-4085-BAF3-5A3F24B08492}
+		{FB9CC949-1EAC-42C5-8AEC-8F63B6B2CF2E} = {B3D06457-EB24-4EC5-8C06-5DFF43CA4A43}
+		{550077A3-6163-4435-A84B-3DBD8424801D} = {FB9CC949-1EAC-42C5-8AEC-8F63B6B2CF2E}
+		{70B7BDDC-D020-45CE-830E-9417038AA2E5} = {550077A3-6163-4435-A84B-3DBD8424801D}
+		{35A4403F-5009-4FD4-882F-5CBEFAD797F0} = {84509CD6-A1AD-43B7-878C-75B93F499346}
+	EndGlobalSection
+EndGlobal
