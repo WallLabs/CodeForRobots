@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Include xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <Fragment>
+
+    <!-- Install State -->
+    <Feature Id='InstallStateFeature'>
+      <Component Id='InstallStateComponent' Guid='{20BBDE5C-691C-42B4-A9FC-188550CB5B81}' Directory='TARGETDIR' KeyPath='yes'>
+
+        <!-- Create folders on install, remove on uninstall -->
+        <CreateFolder Directory='TARGETDIR' />
+        <RemoveFolder Id='RemoveTARGETDIR' Directory='TARGETDIR' On='uninstall' />
+        <CreateFolder Directory='StartMenuDirectory' />
+        <RemoveFolder Id='RemoveStartMenuDirectory' Directory='StartMenuDirectory' On='uninstall' />
+
+        <!-- Save install properties to registry, remove on uninstall -->
+        <RegistryValue Id='SaveTargetDirToRegistry' Root='HKLM' Key='$(var.ProductInstallRegistryKey)' Name='TARGETDIR' Value='[TARGETDIR]' Type='string' />
+        <RemoveRegistryKey Id='RemoveInstallRegistryKeyOnUninstall' Root='HKLM' Key='$(var.ProductInstallRegistryKey)' Action='removeOnUninstall'/>
+
+      </Component>
+    </Feature>
+
+    <!-- Command line property handler fragment-->
+    <!-- It is necessary to save the reset any command line properties after the registry search otherwise any changes are ignored during repair -->
+    <!-- To use this extension add the following to the bottom of the <Product> section: <CustomActionRef Id='SaveCmdLineValue' /> -->
+    <CustomAction Id='SaveCmdLineValue' Property='CMDLINE_TARGETDIR' Value='[TARGETDIR]' Execute='firstSequence' />
+    <CustomAction Id='SetFromCmdLineValue' Property='TARGETDIR' Value='[CMDLINE_TARGETDIR]' Execute='firstSequence' />
+    <InstallUISequence>
+      <Custom Action='SaveCmdLineValue' Before='AppSearch' />
+      <Custom Action='SetFromCmdLineValue' After='AppSearch'>
+        CMDLINE_TARGETDIR
+      </Custom>
+    </InstallUISequence>
+    <InstallExecuteSequence>
+      <Custom Action='SaveCmdLineValue' Before='AppSearch' />
+      <Custom Action='SetFromCmdLineValue' After='AppSearch'>
+        CMDLINE_TARGETDIR
+      </Custom>
+    </InstallExecuteSequence>
+
+  </Fragment>
+</Include>

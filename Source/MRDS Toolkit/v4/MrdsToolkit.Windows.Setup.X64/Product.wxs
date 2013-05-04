@@ -1,0 +1,84 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<Wix xmlns='http://schemas.microsoft.com/wix/2006/wi'
+     xmlns:netfx='http://schemas.microsoft.com/wix/NetFxExtension'
+     xmlns:util='http://schemas.microsoft.com/wix/UtilExtension'
+     xmlns:iis='http://schemas.microsoft.com/wix/IIsExtension'>
+
+  <!-- Global Variables -->
+  <?include Global.wxi ?>
+
+  <!-- Product -->
+  <Product Id='*' Name='$(var.ProductName)' Language='1033' Version='$(var.ProductVersion)' Manufacturer='$(var.ManufacturerName)' UpgradeCode='$(var.UpgradeCode)'>
+    <Package InstallerVersion='200' Compressed='yes' Platform='$(var.Platform)' InstallPrivileges='elevated' InstallScope='perMachine'  Manufacturer='$(var.ManufacturerName)' />
+
+    <!-- Properties -->
+    <PropertyRef Id='NETFRAMEWORK40FULL' />
+    <?if $(var.Platform) = x64 ?>
+    <PropertyRef Id='NETFRAMEWORK40FULLINSTALLROOTDIR64'/>
+    <?else?>
+    <PropertyRef Id='NETFRAMEWORK40FULLINSTALLROOTDIR'/>
+    <?endif?>
+    <Property Id='TARGETDIR'>
+      <RegistrySearch
+        Id='Search_TARGETDIR'
+        Type='raw' Root='HKLM' Win64='$(var.Win64)'
+        Key='$(var.ProductInstallRegistryKey)'
+        Name='TARGETDIR' />
+    </Property>
+
+    <!-- Conditions -->
+    <Condition Message='!(loc.ErrorOSNotSupported)'>
+      <![CDATA[Installed OR (VersionNT64 >= v5.2 OR VersionNT >= v5.2)]]>
+    </Condition>
+    <Condition Message="!(loc.ErrorDotNet40Required)">
+      <![CDATA[Installed OR NETFRAMEWORK40FULL]]>
+    </Condition>
+    <Property Id="MSIUSEREALADMINDETECTION" Value="1" />
+    <Condition Message="!(loc.ErrorNotRunAsAdmin)">
+      <![CDATA[Installed OR Privileged]]>
+    </Condition>
+    <?if $(var.Platform) = x86 ?>
+    <Condition Message='!(loc.Error32bitInstallOn64bit)'>
+      <![CDATA[Installed OR NOT VersionNT64]]>
+    </Condition>
+    <?endif?>
+
+    <!-- Upgrade previous version and check for newer -->
+    <MajorUpgrade DowngradeErrorMessage="!(loc.ErrorNewerVersionInstalled)" />
+
+    <!-- Set default target directory via custom action (so it can be easily overridden in MST)  -->
+    <CustomAction Id='DIRCA_TARGETDIR' Property='TARGETDIR'
+                  Value='[$(var.PlatformProgramFilesFolder)]$(var.ProductName)' />
+    <InstallUISequence>
+      <Custom Action='DIRCA_TARGETDIR' After='LaunchConditions'>TARGETDIR=""</Custom>
+    </InstallUISequence>
+    <InstallExecuteSequence>
+      <Custom Action='DIRCA_TARGETDIR' After='LaunchConditions'>TARGETDIR=""</Custom>
+    </InstallExecuteSequence>
+
+    <!-- Variables -->
+    <WixVariable Id="WixUILicenseRtf" Value="$(var.SolutionDir)Documentation\License.rtf" />
+    <Property Id="WIXUI_INSTALLDIR" Value="INSTALLLOCATION" />
+
+    <!-- Icon -->
+    <Icon Id='ProductIcon' SourceFile='$(var.SolutionDir)Images\Icons\MRDS Toolkit.ico' />
+    <Property Id='ARPPRODUCTICON' Value='ProductIcon' />
+    
+    <!-- Features -->
+    <FeatureRef Id='InstallStateFeature' />
+    <FeatureRef Id='DocumentationFeature' />
+    <FeatureRef Id='ServiceFeature' />
+
+    <!-- Save any command line variables -->
+    <CustomActionRef Id='SaveCmdLineValue' />
+  </Product>
+
+  <!-- Definitions -->
+  <?include InstallState.wxi ?>
+  <?include Directories.wxi ?>
+
+  <!-- Features -->
+  <?include Documentation.wxi ?>
+  <?include Service.wxi ?>
+
+</Wix>

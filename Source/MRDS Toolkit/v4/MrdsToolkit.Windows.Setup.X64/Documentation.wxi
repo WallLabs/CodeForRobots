@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Include xmlns="http://schemas.microsoft.com/wix/2006/wi"
+         xmlns:util='http://schemas.microsoft.com/wix/UtilExtension'>
+  <Fragment>
+
+    <!-- Documentation Feature -->
+    <Feature Id="DocumentationFeature" Title="Documentation" Level="1">
+      <ComponentRef Id="DocumentationComponent"/>
+    </Feature>
+    
+    <!-- Documentation Component -->
+    <Component Id="DocumentationComponent" Guid="{BBCFEE50-D25E-4124-A9CA-BBFDEA1A4586}" Directory="DocumentationDirectory">
+      
+      <!-- Create folder on install, remove on uninstall -->
+      <CreateFolder Directory="DocumentationDirectory" />
+      <RemoveFolder Id="RemoveDocumentationDirectory" Directory="DocumentationDirectory" On="uninstall" />
+
+      <!-- Files -->
+      <File Id="DocumentationLicenseFile" Name="MRDS Toolkit License.rtf" Source="$(var.SolutionDir)Documentation\MRDS Toolkit License.rtf" Checksum="yes" KeyPath="yes" />
+      <File Id="DocumentationReleaseNotesFile" Name="MRDS Toolkit Release Notes.rtf" Source="$(var.SolutionDir)Documentation\MRDS Toolkit Release Notes.rtf" Checksum="yes" />
+
+      <!-- Shortcuts -->
+      <util:InternetShortcut Id="ReleaseNotesShortcut"
+                             Name="Release Notes"
+                             Target="[INSTALLLOCATION]\Documentation\MRDS Toolkit Release Notes.rtf"
+                             Directory="StartMenuDirectory" />
+
+    </Component>
+    
+  </Fragment>
+</Include>
+

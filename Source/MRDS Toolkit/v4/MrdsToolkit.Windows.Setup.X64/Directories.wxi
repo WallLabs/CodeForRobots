@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Include xmlns="http://schemas.microsoft.com/wix/2006/wi">
+
+  <!-- Directory Layout Fragment -->
+  <Fragment>
+
+    <!-- Media -->
+    <Media Id='1' Cabinet='Product.cab' EmbedCab='yes' />
+
+    <!-- Directories -->
+    <Directory Id='TARGETDIR' Name='SourceDir'>
+
+      <!-- Program Files -->
+      <!-- No parent or default name because we want the ability to preset via MST, then a GUID generation seed is required by HEAT. -->
+      <Directory Id='INSTALLLOCATION' ComponentGuidGenerationSeed='{7ACC6E2B-EFFD-47EC-9888-B91503331E2E}'>
+        <Directory Id='DocumentationDirectory' Name='Documentation' />
+        <Directory Id='ServiceDirectory' Name='Service' />
+      </Directory>
+
+      <!-- Start Menu -->
+      <Directory Id='ProgramMenuFolder'>
+        <Directory Id='StartMenuDirectory' Name='$(var.ProductName)' />
+      </Directory>
+
+    </Directory>
+
+  </Fragment>
+
+</Include>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Include xmlns="http://schemas.microsoft.com/wix/2006/wi">
+
+  <!-- Global Variables -->
+
+  <!-- Product Information -->
+  <?define ManufacturerName = "Code for Robots" ?>
+  <?define ProductName = "MRDS Toolkit" ?>
+  <?define ProductVersion = "4.0.1305.3001" ?>
+  <?define UpgradeCode = "{CDC72189-6C3D-485A-91ED-EA5C5EC391F8}" ?>
+
+  <!-- Dynamic Processor Specific Variables (X64 or X86) -->
+  <?if $(var.Platform) = x64 ?>
+  <?define Win64 = "yes" ?>
+  <?define PlatformProgramFilesFolder = "ProgramFiles64Folder" ?>
+  <?define PlatformBitName="64bit" ?>
+  <?define NetFrameworkRootDir = "NETFRAMEWORK40FULLINSTALLROOTDIR64" ?>
+  <?else?>
+  <?define Win64 = "no" ?>
+  <?define PlatformProgramFilesFolder = "ProgramFilesFolder" ?>
+  <?define PlatformBitName="32bit" ?>
+  <?define NetFrameworkRootDir = "NETFRAMEWORK40FULLINSTALLROOTDIR" ?>
+  <?endif?>
+
+  <!-- Constants -->
+  <?define ProductRegistryKey = "Software\$(var.ManufacturerName)\$(var.ProductName)" ?>
+  <?define ProductInstallRegistryKey = "$(var.ProductRegistryKey)\Install" ?>
+
+</Include>
