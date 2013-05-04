@@ -4,7 +4,7 @@ using System.Resources;
 using System.Runtime.InteropServices;
 
 // Information
-[assembly: AssemblyTitle("MrdsToolkit.Windows.ServiceHost")]
+[assembly: AssemblyTitle("Microsoft Robotics Service Host")]
 [assembly: AssemblyDescription("Windows service host for Microsoft DSS services.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]

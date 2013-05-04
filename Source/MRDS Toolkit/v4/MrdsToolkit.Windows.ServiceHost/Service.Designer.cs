@@ -13,7 +13,7 @@
             // 
             // Service
             // 
-            this.ServiceName = "Microsoft Robotics Package Deployer";
+            this.ServiceName = "MicrosoftRoboticsServiceHost";
 
         }
 

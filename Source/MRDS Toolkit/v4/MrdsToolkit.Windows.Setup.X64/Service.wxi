@@ -37,15 +37,15 @@
       
       
       <!-- Service -->
-      <ServiceControl Id='ServiceControlBefore' Name='MrdsServiceHost' Stop='uninstall' Remove='install' Wait='yes' />
-      <ServiceInstall Id='ServiceInstall' Type='ownProcess' Vital='yes' Name='MrdsServiceHost' DisplayName='MRDS Service Host'
-                      Description ='Hosts Microsoft Robotics Developer Studio DSS services which run on this node.' 
+      <ServiceControl Id='ServiceControlBefore' Name='MicrosoftRoboticsServiceHost' Stop='uninstall' Remove='install' Wait='yes' />
+      <ServiceInstall Id='ServiceInstall' Type='ownProcess' Vital='yes' Name='MicrosoftRoboticsServiceHost' DisplayName='Microsoft Robotics Service Host'
+                      Description ='Hosts Microsoft Robotics services.' 
                       Start='disabled' Account='NT AUTHORITY\NetworkService'
                       ErrorControl='ignore' Interactive='yes' />
-      <ServiceControl Id='ServiceControlAfter' Name='MrdsServiceHost' Remove='uninstall' Wait='yes' />
+      <ServiceControl Id='ServiceControlAfter' Name='MicrosoftRoboticsServiceHost' Remove='uninstall' Wait='yes' />
 
       <!-- Event Log -->
-      <util:EventSource Log='Application' Name='MRDS Service Host' SupportsErrors='yes' SupportsInformationals='yes' SupportsWarnings='yes'
+      <util:EventSource Log='Application' Name='Microsoft Robotics Service Host' SupportsErrors='yes' SupportsInformationals='yes' SupportsWarnings='yes'
                         EventMessageFile='[$(var.NetFrameworkRootDir)]EventLogMessages.dll' />
 
     </Component>
