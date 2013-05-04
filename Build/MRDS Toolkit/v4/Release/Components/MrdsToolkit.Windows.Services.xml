@@ -1,0 +1,89 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>MrdsToolkit.Windows.Services</name>
+    </assembly>
+    <members>
+        <member name="T:MrdsToolkit.Windows.Services.MrdsConstants">
+            <summary>
+            Defines constants used throughout Microsoft Robotics Developer Studio.
+            </summary>
+        </member>
+        <member name="F:MrdsToolkit.Windows.Services.MrdsConstants.PackageDeployerServiceContractUri">
+            <summary>
+            Package Deployer service control URI.
+            </summary>
+        </member>
+        <member name="F:MrdsToolkit.Windows.Services.MrdsConstants.PackageDeployerServiceDefaultPort">
+            <summary>
+            Default port for the Package Deployer service.
+            </summary>
+        </member>
+        <member name="T:MrdsToolkit.Windows.Services.PackageDeployerService">
+            <summary>
+            MSRDS Package Deployer DSS service.
+            </summary>
+        </member>
+        <member name="M:MrdsToolkit.Windows.Services.PackageDeployerService.#ctor">
+            <summary>
+            Creates an instance with the default configuration and the current root directory.
+            </summary>
+        </member>
+        <member name="M:MrdsToolkit.Windows.Services.PackageDeployerService.#ctor(System.String)">
+            <summary>
+            Creates an instance with the default configuration and the specified root dirctory..
+            </summary>
+        </member>
+        <member name="M:MrdsToolkit.Windows.Services.PackageDeployerService.#ctor(System.String,System.Int32,System.String)">
+            <summary>
+            Creates an instance with the specified parameters.
+            </summary>
+        </member>
+        <member name="M:MrdsToolkit.Windows.Services.PackageDeployerService.Finalize">
+            <summary>
+            Disposes unmanaged resources during finalization when <see cref="M:MrdsToolkit.Windows.Services.PackageDeployerService.Dispose"/> has not been called.
+            </summary>
+        </member>
+        <member name="M:MrdsToolkit.Windows.Services.PackageDeployerService.Dispose">
+            <summary>
+            Proactively frees resources owned by this object.
+            </summary>
+        </member>
+        <member name="M:MrdsToolkit.Windows.Services.PackageDeployerService.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="F:MrdsToolkit.Windows.Services.PackageDeployerService._host">
+            <summary>
+            Package Deployer service host.
+            </summary>
+        </member>
+        <member name="M:MrdsToolkit.Windows.Services.PackageDeployerService.Start">
+            <summary>
+            Starts the service in the DSS host.
+            </summary>
+        </member>
+        <member name="M:MrdsToolkit.Windows.Services.PackageDeployerService.Stop">
+            <summary>
+            Stops the DSS host if running.
+            </summary>
+        </member>
+        <member name="P:MrdsToolkit.Windows.Services.PackageDeployerService.HostName">
+            <summary>
+            Host name of the DSS host, used by remote nodes to callback the service.
+            </summary>
+        </member>
+        <member name="P:MrdsToolkit.Windows.Services.PackageDeployerService.TcpPort">
+            <summary>
+            TCP port of the service.
+            </summary>
+        </member>
+        <member name="P:MrdsToolkit.Windows.Services.PackageDeployerService.RootDirectory">
+            <summary>
+            Working directory for the DSS host, used to resolve relative paths accessed by services.
+            </summary>
+        </member>
+    </members>
+</doc>

@@ -1,0 +1,284 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Microsoft.Ccr.Adapters.Wpf</name>
+    </assembly>
+    <members>
+        <member name="T:Microsoft.Ccr.Adapters.Wpf.WpfAdapter">
+            <summary>
+            A service for creating WPF windows and using WPF controls in the appropriate WPF dispatcher
+            </summary>
+        </member>
+        <member name="M:Microsoft.Ccr.Adapters.Wpf.WpfAdapter.Create(Microsoft.Ccr.Core.DispatcherQueue)">
+            <summary>
+            Creates a new WPF adapter.
+            <remarks>
+            The current application of the appdomain is used.
+            If the current application has not been initialized the default application implementation is used.
+            </remarks>
+            </summary>
+            <param name="taskQueue">The task queue that on which to activate the adapter</param>
+            <returns>service port of the WPF adapter</returns>
+        </member>
+        <member name="M:Microsoft.Ccr.Adapters.Wpf.WpfAdapter.Create(Microsoft.Ccr.Core.DispatcherQueue,Microsoft.Ccr.Core.Port{System.Exception}@)">
+            <summary>
+            Creates a new WPF adapter.
+            <remarks>
+            The current application of the appdomain is used.
+            If the current application has not been initialized the default application implementation is used.
+            </remarks>
+            </summary>
+            <param name="taskQueue">The task queue that on which to activate the adapter</param>
+            <param name="exceptions">Ports on which unhandled exception will be posted</param>
+            <returns>service port of the WPF adapter</returns>
+        </member>
+        <member name="M:Microsoft.Ccr.Adapters.Wpf.WpfAdapter.Create(Microsoft.Ccr.Core.DispatcherQueue,System.Windows.Application)">
+            <summary>
+            Creates a new WPF adapter.
+            </summary>
+            <param name="taskQueue">The task queue that on which to activate the adapter</param>
+            <param name="application">
+            The WPF application instance in which to execute the operation.
+            <remarks>
+            If the value is <code>null</code> the current application of the appdomain is used.
+            If the current application has not been initialized the default application implementation is used.
+            </remarks>
+            </param>
+            <returns>service port of the WPF adapter</returns>
+        </member>
+        <member name="M:Microsoft.Ccr.Adapters.Wpf.WpfAdapter.Create(Microsoft.Ccr.Core.DispatcherQueue,System.Windows.Application,Microsoft.Ccr.Core.Port{System.Exception}@)">
+            <summary>
+            Creates a new WPF adapter.
+            </summary>
+            <param name="taskQueue">The task queue that on which to activate the adapter</param>
+            <param name="application">
+            The WPF application instance in which to execute the operation.
+            <remarks>
+            If the value is <code>null</code> the current application of the appdomain is used.
+            If the current application has not been initialized the default application implementation is used.
+            </remarks>
+            </param>
+            <param name="exceptions">ports on which unhandled exception will be posted</param>
+            <returns>service port of the WPF adapter</returns>
+        </member>
+        <member name="F:Microsoft.Ccr.Adapters.Wpf.WpfAdapter._lock">
+            <summary>
+            the monitor that is used for ensuring that WPF adapters only create 
+            one <seealso cref="T:System.Windows.Application"/> instance per app domain
+            </summary>
+        </member>
+        <member name="F:Microsoft.Ccr.Adapters.Wpf.WpfAdapter._application">
+            <summary>
+            application instance
+            </summary>
+        </member>
+        <member name="F:Microsoft.Ccr.Adapters.Wpf.WpfAdapter._port">
+            <summary>
+            service port
+            </summary>
+        </member>
+        <member name="F:Microsoft.Ccr.Adapters.Wpf.WpfAdapter._unhandledException">
+            <summary>
+            port for sending unhandled exceptions
+            </summary>
+        </member>
+        <member name="M:Microsoft.Ccr.Adapters.Wpf.WpfAdapter.#ctor(System.Windows.Application,Microsoft.Ccr.Core.DispatcherQueue)">
+            <summary>
+            Initializes the WPF adapter
+            </summary>
+            <param name="application">
+            The WPF application instance in which to execute the operation.
+            <remarks>
+            If the value is <code>null</code> the current application of the appdomain is used.
+            If the current application has not been initialized the default application implementation is used.
+            </remarks>
+            </param>
+            <param name="taskQueue">The task queue that on which to activate the adapter</param>
+        </member>
+        <member name="M:Microsoft.Ccr.Adapters.Wpf.WpfAdapter.InitializeApplication">
+            <summary>
+            Initializes the application if necessary and registers event handlers
+            </summary>
+        </member>
+        <member name="T:Microsoft.Ccr.Adapters.Wpf.Invoker">
+            <summary>
+            Delegate for invoking a method in a WPF adapter
+            </summary>
+        </member>
+        <member name="T:Microsoft.Ccr.Adapters.Wpf.Invoker`1">
+            <summary>
+            Delegate for invoking a method in a WPF adapter
+            </summary>
+            <typeparam name="R">return type of the method</typeparam>
+            <returns>the return value of the method</returns>
+        </member>
+        <member name="T:Microsoft.Ccr.Adapters.Wpf.WindowContructor">
+            <summary>
+            Delegate for creating a window in the WPF adapter
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Microsoft.Ccr.Adapters.Wpf.WpfServicePort">
+            <summary>
+            Port for creating windows and invoking methods in the WPF adapter
+            </summary>
+        </member>
+        <member name="M:Microsoft.Ccr.Adapters.Wpf.WpfServicePort.Invoke(Microsoft.Ccr.Adapters.Wpf.Invoker,Microsoft.Ccr.Core.SuccessFailurePort)">
+            <summary>
+            Invokes a method in the WPF adapter
+            </summary>
+            <param name="invoker">the delegate that invokes the method</param>
+            <param name="responsePort">the port to which the method result is posted</param>
+            <returns>the port to which the method result is posted</returns>
+        </member>
+        <member name="M:Microsoft.Ccr.Adapters.Wpf.WpfServicePort.Invoke``1(Microsoft.Ccr.Adapters.Wpf.Invoker{``0},Microsoft.Ccr.Core.PortSet{``0,System.Exception})">
+            <summary>
+            Invokes a method in the WPF adapter
+            </summary>
+            <typeparam name="R">return type of the method</typeparam>
+            <param name="invoker">the delegate that invokes the method</param>
+            <param name="responsePort">the port to which the method result is posted</param>
+            <returns>the port to which the method result is posted</returns>
+        </member>
+        <member name="M:Microsoft.Ccr.Adapters.Wpf.WpfServicePort.RunWindow(Microsoft.Ccr.Adapters.Wpf.WindowContructor,Microsoft.Ccr.Core.PortSet{System.Windows.Window,System.Exception})">
+            <summary>
+            Creates and shows a window in the WPF adaptor
+            </summary>
+            <param name="constructor">the delegate that creates the window</param>
+            <param name="responsePort">the port to which the window will be posted</param>
+            <returns>the port to which the window will be posted</returns>
+        </member>
+        <member name="M:Microsoft.Ccr.Adapters.Wpf.WpfServicePort.Invoke(Microsoft.Ccr.Adapters.Wpf.Invoker)">
+            <summary>
+            Invokes a method in the WPF adapter
+            </summary>
+            <param name="invoker">the delegate that invokes the method</param>
+            <returns>the port to which the method result is posted</returns>
+        </member>
+        <member name="M:Microsoft.Ccr.Adapters.Wpf.WpfServicePort.Invoke``1(Microsoft.Ccr.Adapters.Wpf.Invoker{``0})">
+            <summary>
+            Invokes a method in the WPF adapter
+            </summary>
+            <typeparam name="R">return type of the method</typeparam>
+            <param name="invoker">the delegate that invokes the method</param>
+            <returns>the port to which the method result is posted</returns>
+        </member>
+        <member name="M:Microsoft.Ccr.Adapters.Wpf.WpfServicePort.RunWindow(Microsoft.Ccr.Adapters.Wpf.WindowContructor)">
+            <summary>
+            Creates and shows a window in the WPF adaptor
+            </summary>
+            <param name="constructor">the delegate that creates the window</param>
+            <returns>the port to which the window will be posted</returns>
+        </member>
+        <member name="T:Microsoft.Ccr.Adapters.Wpf.RunWindow">
+            <summary>
+            Creates and shows a window in the WPF adaptor
+            </summary>
+        </member>
+        <member name="T:Microsoft.Ccr.Adapters.Wpf.Invoke`1">
+            <summary>
+            Invokes a method in the WPF adapter
+            </summary>
+            <typeparam name="R">the return type of the method</typeparam>
+        </member>
+        <member name="T:Microsoft.Ccr.Adapters.Wpf.DispatcherInvoke">
+            <summary>
+            Invokes a method in the WPF dispatcher.
+            <remarks>
+            Don't use this class directly. Use <seealso cref="T:Microsoft.Ccr.Adapters.Wpf.Invoke"/>
+            </remarks>
+            </summary>
+        </member>
+        <member name="M:Microsoft.Ccr.Adapters.Wpf.DispatcherInvoke.#ctor">
+            <summary>
+            Initializes a new instance of <code>DispatcherInvoke</code>
+            </summary>
+        </member>
+        <member name="P:Microsoft.Ccr.Adapters.Wpf.DispatcherInvoke.Priority">
+            <summary>
+            Gets or sets the priority with which to invoke the method.
+            <remarks>The default value is <code>Normal</code></remarks>
+            </summary>
+        </member>
+        <member name="M:Microsoft.Ccr.Adapters.Wpf.Invoke`1.#ctor(Microsoft.Ccr.Adapters.Wpf.Invoker{`0},Microsoft.Ccr.Core.PortSet{`0,System.Exception})">
+            <summary>
+            Creates a new instance of <code>Invoke</code>
+            </summary>
+            <param name="invoker">the delegate that invokes the method</param>
+            <param name="responsePort">the port to which the method result is posted</param>
+        </member>
+        <member name="M:Microsoft.Ccr.Adapters.Wpf.Invoke`1.#ctor(Microsoft.Ccr.Adapters.Wpf.Invoker{`0})">
+            <summary>
+            Creates a new instance of <code>Invoke</code>
+            </summary>
+            <param name="invoker">the delegate that invokes the method</param>
+        </member>
+        <member name="P:Microsoft.Ccr.Adapters.Wpf.Invoke`1.ResponsePort">
+            <summary>
+            Gets or set the port to which the method result is posted
+            </summary>
+        </member>
+        <member name="M:Microsoft.Ccr.Adapters.Wpf.RunWindow.#ctor(Microsoft.Ccr.Adapters.Wpf.WindowContructor,Microsoft.Ccr.Core.PortSet{System.Windows.Window,System.Exception})">
+            <summary>
+            Creates a new instance of <code>RunWindow</code>
+            </summary>
+            <param name="contructor">the delegate the creates the window</param>
+            <param name="responsePort">the port to which the window will be posted</param>
+        </member>
+        <member name="M:Microsoft.Ccr.Adapters.Wpf.RunWindow.#ctor(Microsoft.Ccr.Adapters.Wpf.WindowContructor)">
+            <summary>
+            Creates a new instance of <code>RunWindow</code>
+            </summary>
+            <param name="contructor">the delegate the creates the window</param>
+        </member>
+        <member name="T:Microsoft.Ccr.Adapters.Wpf.Invoke">
+            <summary>
+            Invokes a method in the WPF adapter
+            </summary>
+        </member>
+        <member name="M:Microsoft.Ccr.Adapters.Wpf.Invoke.#ctor(Microsoft.Ccr.Adapters.Wpf.Invoker,Microsoft.Ccr.Core.SuccessFailurePort)">
+            <summary>
+            Creates a new instance of <code>Invoke</code>
+            </summary>
+            <param name="invoker">the delegate that invokes the method</param>
+            <param name="responsePort">the port to which the method result is posted</param>
+        </member>
+        <member name="M:Microsoft.Ccr.Adapters.Wpf.Invoke.#ctor(Microsoft.Ccr.Adapters.Wpf.Invoker)">
+            <summary>
+            Creates a new instance of <code>Invoke</code>
+            </summary>
+            <param name="invoker">the delegate that invokes the method</param>
+        </member>
+        <member name="T:Microsoft.Ccr.Adapters.Wpf.Shutdown">
+            <summary>
+            Shuts down a WPF dispatcher
+            </summary>
+        </member>
+        <member name="M:Microsoft.Ccr.Adapters.Wpf.Shutdown.#ctor">
+            <summary>
+            Creates a new instance of <code>Shutdown</code>
+            </summary>
+        </member>
+        <member name="M:Microsoft.Ccr.Adapters.Wpf.Shutdown.#ctor(Microsoft.Ccr.Core.SuccessFailurePort)">
+            <summary>
+            Creates a new instance of <code>Shutdown</code>
+            </summary>
+            <param name="responsePort">the port to which the shutdown result is posted</param>
+        </member>
+        <member name="P:Microsoft.Ccr.Adapters.Wpf.Shutdown.ResponsePort">
+            <summary>
+            Gets or sets the port to which the shutdown result is posted
+            </summary>
+        </member>
+        <member name="P:Microsoft.Ccr.Adapters.Wpf.Shutdown.ExitApplication">
+            <summary>
+            Gets or sets a value that indicates whether to shutdown the underlying WPF application.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Ccr.Adapters.Wpf.Shutdown.ExitCode">
+            <summary>
+            Gets or sets the exit code whith which to shutdown the underlying WPF application
+            </summary>
+        </member>
+    </members>
+</doc>
