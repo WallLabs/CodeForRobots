@@ -1,1 +1,1 @@
-net start "MRDS Service Host"
+net start MicrosoftRoboticsServiceHost

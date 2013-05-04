@@ -39,10 +39,9 @@
             // 
             // _installer
             // 
-            this._installer.Description = "Hosts DSS services including the Package Deployer enabling remote deployment.";
-            this._installer.DisplayName = "Microsoft Robotics Studio Service Host";
-            this._installer.ServiceName = "Microsoft Robotics Package Deployer";
-            this._installer.StartType = System.ServiceProcess.ServiceStartMode.Automatic;
+            this._installer.Description = "Hosts Microsoft Robotics services.";
+            this._installer.DisplayName = "Microsoft Robotics Service Host";
+            this._installer.ServiceName = "MicrosoftRoboticsServiceHost";
             // 
             // ProjectInstaller
             // 

@@ -1,1 +1,1 @@
-net stop "MRDS Service Host"
+net stop MicrosoftRoboticsServiceHost

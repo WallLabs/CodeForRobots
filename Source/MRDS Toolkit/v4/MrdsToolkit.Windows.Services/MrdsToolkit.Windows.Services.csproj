@@ -71,6 +71,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MrdsToolkitConstants.cs" />
     <Compile Include="MrdsConstants.cs" />
     <Compile Include="PackageDeployerService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

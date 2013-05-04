@@ -1,1 +1,1 @@
-installutil -i MrdsToolkit.Windows.ServiceHost\bin\Debug\MrdsToolkit.Windows.ServiceHost.exe
+installutil -i "MrdsToolkit.Windows.ServiceHost\bin\Debug\MicrosoftRoboticsServiceHost.exe"
