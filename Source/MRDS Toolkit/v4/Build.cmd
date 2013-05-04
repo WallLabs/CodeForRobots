@@ -26,9 +26,9 @@ echo Compiling %ConfigurationName% build...
 msbuild "%~dp0MRDS Toolkit v4.sln" /p:Configuration=%ConfigurationName%
 if %errorlevel% neq 0 goto error
 if not "%ConfigurationName%" == "Release" (
-	msbuild "%~dp0MrdsToolkit.Windows.Setup.X64\MrdsToolkit.Windows.Setup.X64.wixproj" /p:SolutionDir=%~dp0;Configuration=%ConfigurationName%
+	msbuild "%~dp0MrdsToolkit.Windows.Setup.X64\MrdsToolkit.Windows.Setup.X64.wixproj" /p:Configuration=%ConfigurationName%
 	if %errorlevel% neq 0 goto error
-	msbuild "%~dp0MrdsToolkit.Windows.Setup.X86\MrdsToolkit.Windows.Setup.X86.wixproj" /p:SolutionDir=%~dp0;Configuration=%ConfigurationName%
+	msbuild "%~dp0MrdsToolkit.Windows.Setup.X86\MrdsToolkit.Windows.Setup.X86.wixproj" /p:Configuration=%ConfigurationName%
 	if %errorlevel% neq 0 goto error
 )
 

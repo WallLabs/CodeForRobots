@@ -8,9 +8,9 @@ echo components or release.
 
 echo.
 echo Update source (and delete extra files)...
-tf undo "%~dp0..\..\Build\v4" /recursive /noprompt
+tf undo "%~dp0..\..\..\Build\MRDS Toolkit\v4" /recursive /noprompt
 if %errorlevel% gtr 1 goto error
-tfpt scorch "%~dp0..\..\Build\v4" /recursive /diff /noprompt
+tfpt scorch "%~dp0..\..\..\Build\MRDS Toolkit\v4" /recursive /diff /noprompt
 if %errorlevel% gtr 1 goto error
 tf get "%~dp0" /recursive /noprompt
 if %errorlevel% gtr 1 goto error
@@ -31,25 +31,25 @@ if %errorlevel% neq 0 goto error
 
 echo.
 echo Delete old build directory so that old or renamed items are cleaned
-if not exist "%~dp0..\..\Build\v4" goto TargetClean
-tf delete "%~dp0..\..\Build\v4" /recursive
+if not exist "%~dp0..\..\..\Build\MRDS Toolkit\v4" goto TargetClean
+tf delete "%~dp0..\..\..\Build\MRDS Toolkit\v4" /recursive
 if %errorlevel% gtr 1 goto error
-rmdir "%~dp0..\..\Build\v4" /s /q
+rmdir "%~dp0..\..\..\Build\MRDS Toolkit\v4" /s /q
 if %errorlevel% neq 0 goto error
-tf checkin "%~dp0..\..\Build\v4" /recursive /noprompt
+tf checkin "%~dp0..\..\..\Build\MRDS Toolkit\v4" /recursive /noprompt
 if %errorlevel% gtr 1 goto error
 :TargetClean
 
 echo.
 echo Copying output to build directory...
-robocopy "%~dp0Debug" "%~dp0..\..\Build\v4\Debug" /s
+robocopy "%~dp0Debug" "%~dp0..\..\..\Build\MRDS Toolkit\v4\Debug" /s
 if %errorlevel% gtr 7 goto error
-robocopy "%~dp0Release" "%~dp0..\..\Build\v4\Release" /s
+robocopy "%~dp0Release" "%~dp0..\..\..\Build\MRDS Toolkit\v4\Release" /s
 if %errorlevel% gtr 7 goto error
 
 echo.
 echo Adding any new files in build directory...
-tf add "%~dp0..\..\Build\v4" /recursive /noprompt /noignore
+tf add "%~dp0..\..\..\Build\MRDS Toolkit\v4" /recursive /noprompt /noignore
 if %errorlevel% gtr 1 goto error
 
 echo.

@@ -1,0 +1,280 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Microsoft.Ccr.Adapters.WinForms</name>
+    </assembly>
+    <members>
+        <member name="T:Microsoft.Ccr.Adapters.WinForms.HiddenForm">
+            <summary>
+            This class represents a form that is created and never visible, used for
+            invoking methods on the WinForms thread.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Ccr.Adapters.WinForms.HiddenForm.hiddenFormPort">
+            <summary>
+            The port that this form uses to communicate back to the adapter.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Ccr.Adapters.WinForms.HiddenForm.#ctor(Microsoft.Ccr.Adapters.WinForms.HiddenFormPort)">
+            <summary>
+            Initializes a new instance of the HiddenForm class.
+            </summary>
+            <param name="port">The port used to communicate back to the
+            adapter.</param>
+        </member>
+        <member name="M:Microsoft.Ccr.Adapters.WinForms.HiddenForm.OnClosing(System.ComponentModel.CancelEventArgs)">
+            <summary>
+            Handles the Closing event on the form, this posts a message back to
+            the adapter.
+            </summary>
+            <param name="e">The parameter is not used.</param>
+        </member>
+        <member name="M:Microsoft.Ccr.Adapters.WinForms.HiddenForm.OnLoad(System.EventArgs)">
+            <summary>
+            Handles the loaded event on the form, this posts a message back to 
+            the adapter.
+            </summary>
+            <param name="e">The parameter is not used.</param>
+        </member>
+        <member name="F:Microsoft.Ccr.Adapters.WinForms.HiddenForm.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Ccr.Adapters.WinForms.HiddenForm.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Ccr.Adapters.WinForms.HiddenForm.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Ccr.Adapters.WinForms.FormLoaded">
+            <summary>
+            A message class used to communicate form load events to the adapter.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Ccr.Adapters.WinForms.FormClosed">
+            <summary>
+            A message class used to communicate form closed events to the adapter.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Ccr.Adapters.WinForms.HiddenFormPort">
+            <summary>
+            The port used by the form to communicate with the adapter.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Ccr.Adapters.WinForms.WinFormConstructor">
+            <summary>
+            Creates a new WinForm when called on an appropriate thread.
+            </summary>
+            <returns>The new WinForm.</returns>
+        </member>
+        <member name="T:Microsoft.Ccr.Adapters.WinForms.WinFormsServicePort">
+            <summary>
+            Port type for creating forms on an appropriate thread, invoking 
+            functions on them, and getting the function invocation results.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Ccr.Adapters.WinForms.WinFormsServicePort.FormInvoke(System.Windows.Forms.MethodInvoker)">
+            <summary>
+            Posts a FormInvoke message to the winform service.
+            </summary>
+            <param name="methodDelegate">The method to invoke.</param>
+        </member>
+        <member name="T:Microsoft.Ccr.Adapters.WinForms.RunForm">
+            <summary>
+            Requests for a form to be created on an appropriate thread.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Ccr.Adapters.WinForms.RunForm.Constructor">
+            <summary>
+            The delegate to invoke to create the form.
+            Will be called on the thread for running forms.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Ccr.Adapters.WinForms.RunForm.pResult">
+            <summary>
+            A port for receiving the result of the form creation.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Ccr.Adapters.WinForms.RunForm.#ctor(Microsoft.Ccr.Adapters.WinForms.WinFormConstructor)">
+            <summary>
+            Initializes a new instance of the RunForm class.
+            </summary>
+            <param name="constructor">The delegate to invoke to create the form.
+            It will be called on the thread for running forms.</param>
+        </member>
+        <member name="T:Microsoft.Ccr.Adapters.WinForms.FormInvoke">
+            <summary>
+            Requests a method to be run on the WinForm thread.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Ccr.Adapters.WinForms.FormInvoke.#ctor(System.Windows.Forms.MethodInvoker)">
+            <summary>
+            Initializes a new instance of the FormInvoke class.
+            </summary>
+            <param name="worker">The method to run.</param>
+        </member>
+        <member name="M:Microsoft.Ccr.Adapters.WinForms.FormInvoke.#ctor(System.Windows.Forms.MethodInvoker,Microsoft.Ccr.Core.PortSet{Microsoft.Ccr.Core.EmptyValue,System.Exception})">
+            <summary>
+            Initializes a new instance of the FormInvoke class.
+            </summary>
+            <param name="worker">The method to run.</param>
+            <param name="resultPort">The port on which to send the result of the 
+            invocation.</param>
+        </member>
+        <member name="P:Microsoft.Ccr.Adapters.WinForms.FormInvoke.WorkerThunk">
+            <summary>
+            Gets the method to run on the WinForms thread.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Ccr.Adapters.WinForms.FormInvoke.ResultPort">
+            <summary>
+            Gets the port for receiving the result of the invocation.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Ccr.Adapters.WinForms.WinFormsAdapter">
+            <summary>
+            A service for creating WinForms on an appropriate thread, invoking 
+            functions on them, and getting the function invocation results.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Ccr.Adapters.WinForms.WinFormsAdapter.ThreadName">
+            <summary>
+            The name of the winforms thread.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Ccr.Adapters.WinForms.WinFormsAdapter.exceptionsPort">
+            <summary>
+            Unhandled exceptions on the winforms thread are posted to this port.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Ccr.Adapters.WinForms.WinFormsAdapter.mainPort">
+            <summary>
+            The main operations port for the adapter.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Ccr.Adapters.WinForms.WinFormsAdapter.hiddenFormPort">
+            <summary>
+            The port used to communicated with the hidden form.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Ccr.Adapters.WinForms.WinFormsAdapter.thread">
+            <summary>
+            The winforms thread.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Ccr.Adapters.WinForms.WinFormsAdapter.hiddenForm">
+            <summary>
+            The hidden form used to managed the lifecycle of the winforms 
+            thread.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Ccr.Adapters.WinForms.WinFormsAdapter.#ctor(Microsoft.Ccr.Core.DispatcherQueue)">
+            <summary>
+            Initializes a new instance of the WinFormsAdapter class.
+            </summary>
+            <param name="dispatcherQueue">The CCR task queue used by this
+            adapter.</param>
+        </member>
+        <member name="M:Microsoft.Ccr.Adapters.WinForms.WinFormsAdapter.Create(Microsoft.Ccr.Core.DispatcherQueue)">
+            <summary>
+            Creates a new service and returns a port over which to interact with 
+            it.
+            </summary>
+            <param name="dispatcherQueue">Dispatcher on which to run service 
+            code.</param>
+            <returns>Port through which to interact with the new service.</returns>
+        </member>
+        <member name="M:Microsoft.Ccr.Adapters.WinForms.WinFormsAdapter.Create(Microsoft.Ccr.Core.DispatcherQueue,Microsoft.Ccr.Core.Port{System.Exception}@)">
+            <summary>
+            Creates a new service and returns a port over which to interact with 
+            it.
+            </summary>
+            <param name="dispatcherQueue">Dispatcher on which to run service 
+            code.</param>
+            <param name="threadExceptions">Port to which unhandled WinForms 
+            thread exceptions will be posted.</param>
+            <returns>Port through which to interact with the new service.</returns>
+        </member>
+        <member name="M:Microsoft.Ccr.Adapters.WinForms.WinFormsAdapter.Dispose">
+            <summary>
+            Disposes form service.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Ccr.Adapters.WinForms.WinFormsAdapter.Dispose(System.Boolean)">
+            <summary>
+            Disposed the adapter by posting a shutdown to the main port.
+            </summary>
+            <param name="disposing">The parameter not used.</param>
+        </member>
+        <member name="M:Microsoft.Ccr.Adapters.WinForms.WinFormsAdapter.ThreadProc">
+            <summary>
+            The thread entry point for the WinForms thread.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Ccr.Adapters.WinForms.WinFormsAdapter.ThreadExceptionHandler(System.Object,System.Threading.ThreadExceptionEventArgs)">
+            <summary>
+            Processes unhandled events on the winforms thread.
+            </summary>
+            <param name="sender">The parameter is not used.</param>
+            <param name="e">Event arguments containing information about the
+            exception.</param>
+        </member>
+        <member name="M:Microsoft.Ccr.Adapters.WinForms.WinFormsAdapter.Invoke(System.Windows.Forms.MethodInvoker)">
+            <summary>
+            Invokes an delegate on the winforms thread.
+            </summary>
+            <param name="methodInvoker">The method to invoke.</param>
+        </member>
+        <member name="M:Microsoft.Ccr.Adapters.WinForms.WinFormsAdapter.HiddenFormLoaded(Microsoft.Ccr.Adapters.WinForms.FormLoaded)">
+            <summary>
+            Process a message from the hidden form when it is loaded. This 
+            starts the adapter's normal message processing.
+            </summary>
+            <param name="loaded">The parameter is not used.</param>
+        </member>
+        <member name="M:Microsoft.Ccr.Adapters.WinForms.WinFormsAdapter.HandleRunningShutdown(Microsoft.Ccr.Core.Shutdown)">
+            <summary>
+            Handles a shutdown when the adapter is running (i.e. the form has 
+            been loaded).
+            </summary>
+            <param name="shutdown">The shutdown message.</param>
+        </member>
+        <member name="M:Microsoft.Ccr.Adapters.WinForms.WinFormsAdapter.HandleFormInvoke(Microsoft.Ccr.Adapters.WinForms.FormInvoke)">
+            <summary>
+            Handles a form invoke message by invoking the object on the winforms
+            thread.
+            </summary>
+            <param name="formInvoke">The message containing the method to 
+            invoke.</param>
+            <returns>A standard CCR iterator.</returns>
+        </member>
+        <member name="M:Microsoft.Ccr.Adapters.WinForms.WinFormsAdapter.RunInvokedMethod(Microsoft.Ccr.Adapters.WinForms.FormInvoke,Microsoft.Ccr.Core.Port{Microsoft.Ccr.Core.EmptyValue})">
+            <summary>
+            Execute the method in the context of the winforms thread, ensuring
+            that the completion signal is always fired and that exceptions are 
+            posted back to the message sender.
+            </summary>
+            <param name="formInvoke">The form invoke message.</param>
+            <param name="signalPort">The signalling port.</param>
+        </member>
+        <member name="M:Microsoft.Ccr.Adapters.WinForms.WinFormsAdapter.HandleRunForm(Microsoft.Ccr.Adapters.WinForms.RunForm)">
+            <summary>
+            Handles the run form message that starts a form in the winforms 
+            thread.
+            </summary>
+            <param name="runForm">The message to handle.</param>
+        </member>
+        <member name="M:Microsoft.Ccr.Adapters.WinForms.WinFormsAdapter.HiddenFormClosed(Microsoft.Ccr.Adapters.WinForms.FormClosed)">
+            <summary>
+            Handles the form closed message from the hidden form.
+            </summary>
+            <param name="closed">The parameter is not used.</param>
+        </member>
+    </members>
+</doc>

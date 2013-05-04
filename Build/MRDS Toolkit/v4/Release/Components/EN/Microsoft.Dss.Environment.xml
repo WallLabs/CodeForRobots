@@ -1,0 +1,538 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Microsoft.Dss.Environment</name>
+    </assembly>
+    <members>
+        <member name="T:Microsoft.Dss.Hosting.DssEnvironment">
+            <summary>
+            Allows hosting of the Dss runtime from an arbitrary .NET application
+            </summary>
+        </member>
+        <member name="M:Microsoft.Dss.Hosting.DssEnvironment.Initialize(System.Int32,System.Int32)">
+            <summary>
+            Initializes a new instance of the Dss runtime
+            </summary>
+            <param name="httpPort">HTTP listener port</param>
+            <param name="tcpPort">TCP transport listen port</param>
+        </member>
+        <member name="M:Microsoft.Dss.Hosting.DssEnvironment.Initialize(System.Int32,System.Int32,System.String[])">
+            <summary>
+            Starts Dss runtime
+            </summary>
+            <param name="httpPort">TCP port to listen for incoming HTTP requests.</param>
+            <param name="tcpPort">TCP port to listen for SOAP requests.</param>
+            <param name="manifestFilePaths">Array of initial manifests to load.</param>
+        </member>
+        <member name="M:Microsoft.Dss.Hosting.DssEnvironment.Initialize(System.String,System.Int32,System.Int32,System.String[])">
+            <summary>
+            Initializes a new instance of the Dss runtime
+            </summary>
+            <param name="securitySettings">Path of security settings file.</param>
+            <param name="httpPort">TCP port to listen for incoming HTTP requests.</param>
+            <param name="tcpPort">TCP port to listen for SOAP requests.</param>
+            <param name="manifestFilePaths">Array of initial manifests to load.</param>
+        </member>
+        <member name="M:Microsoft.Dss.Hosting.DssEnvironment.Initialize(Microsoft.Dss.Core.DssRuntimeConfiguration,System.String[])">
+            <summary>
+            Initializes a new instance of the Dss runtime
+            </summary>
+            <param name="configuration"></param>
+            <param name="manifestFilePaths"></param>
+        </member>
+        <member name="M:Microsoft.Dss.Hosting.DssEnvironment.Initialize(System.String,System.Int32,System.Int32,System.String,System.Action,System.Action,System.Action{System.Exception})">
+            <summary>
+            Initializes a new instance of the Dss runtime asynchronously.
+            </summary>
+            <param name="securitySettings">The security settings path.</param>
+            <param name="httpPort">The HTTP port.</param>
+            <param name="tcpPort">The TCP port.</param>
+            <param name="hostRootDir">The host root dir.</param>
+            <param name="initialized">Called when the node is initialized.</param>
+            <param name="shutdown">Called when the node is shutdown.</param>
+            <param name="error">Called if an exception is raised in the node
+            lifecycle management.</param>
+        </member>
+        <member name="M:Microsoft.Dss.Hosting.DssEnvironment.WaitForShutdown">
+            <summary>
+            Blocks calling thread until shutdown occurs and completes on this DSS node 
+            </summary>
+        </member>
+        <member name="M:Microsoft.Dss.Hosting.DssEnvironment.Shutdown">
+            <summary>
+            Disposes dss node resources and shuts down the node
+            </summary>
+            <remarks>Blocking call</remarks>
+        </member>
+        <member name="M:Microsoft.Dss.Hosting.DssEnvironment.Activate(Microsoft.Ccr.Core.ITask[])">
+            <summary>
+            Activate tasks on the common CCR dispatcher queue.
+            </summary>
+            <param name="tasks">The tasks to activate.</param>
+        </member>
+        <member name="M:Microsoft.Dss.Hosting.DssEnvironment.TimeoutPort(System.TimeSpan)">
+            <summary>
+            Create a timer and return a port that will receive a message when 
+            the timer completes.
+            </summary>
+            <param name="timeout">The time interval until the timer should 
+            complete</param>
+            <returns>A port that will receive a message when the timer
+            completes.</returns>
+        </member>
+        <member name="M:Microsoft.Dss.Hosting.DssEnvironment.SpawnIterator(Microsoft.Ccr.Core.IteratorHandler)">
+            <summary>
+            Schedule an iterator task on the common CCR dispatcher queue.
+            </summary>
+            <param name="handler">The task handler</param>
+        </member>
+        <member name="M:Microsoft.Dss.Hosting.DssEnvironment.QueryServiceContract(System.String,System.Boolean)">
+            <summary>
+            Issues a query request for metadata to the contract directory, that can optionally load the proxy and transform dlls
+            for the specified service contract
+            </summary>
+            <param name="contractIdentifier">Service contract identifier</param>
+            <param name="loadProxyAndTransform">
+            If true the serialization support dlls are loaded so requests to and from the service
+            serialize properly</param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.Dss.Hosting.DssEnvironment.LookupOnUri(System.Uri,System.TimeSpan)">
+            <summary>
+            Sends a lookup message to a remote service to check if it is
+            responsive.
+            </summary>
+            <param name="serviceUri">The remote service uri to ping.</param>
+            <param name="timeout">The timeout value, after which a service is
+            deemed non-responsive.</param>
+            <returns>A portset where the result is posted.</returns>
+        </member>
+        <member name="M:Microsoft.Dss.Hosting.DssEnvironment.DirectoryQuery(System.String,System.Uri,System.TimeSpan)">
+            <summary>
+            Find a running service in a remote node's instance directory.
+            </summary>
+            <param name="contract">The contract of the service to find.</param>
+            <param name="remoteNodeBaseUri">The base address of the remote node</param>
+            <param name="timeout">A timeout value, afterwhich the node is
+            considered unavailable</param>
+            <returns>A port where result is posted.</returns>
+        </member>
+        <member name="M:Microsoft.Dss.Hosting.DssEnvironment.DirectoryQuery``1(System.Uri,System.TimeSpan)">
+            <summary>
+            Find a running service in a remote node's instance directory.
+            The service type is used to find the contract identifier.
+            </summary>
+            <typeparam name="T">Service type</typeparam>
+            <param name="remoteNodeBaseUri">The remote node base URI.</param>
+            <param name="timeout">The timeout.</param>
+            <returns>A port where result is posted.</returns>
+        </member>
+        <member name="M:Microsoft.Dss.Hosting.DssEnvironment.ServiceForwarder``1(System.Uri,System.TimeSpan)">
+            <summary>
+            Creates a service port for sending messages to a remote service.
+            Will verify that service is available for the duration of the timeout
+            and generate a failure if service is not available before timeout.
+            </summary>
+            <typeparam name="T">Service operations port type</typeparam>
+            <param name="serviceUri">The service URI.</param>
+            <param name="timeout">The timeout.</param>
+            <returns>Portset where the service forwarder (or failure) is posted.</returns>
+        </member>
+        <member name="M:Microsoft.Dss.Hosting.DssEnvironment.ServiceForwarder``1(System.Uri)">
+            <summary>
+            Creates a service port for sending messages to a remote service
+            </summary>
+            <typeparam name="T">Service operations port type</typeparam>
+            <param name="serviceUri">Service Uri</param>
+            <returns>Port instance of type T</returns>
+        </member>
+        <member name="M:Microsoft.Dss.Hosting.DssEnvironment.ServiceForwarderUnknownType(System.Uri)">
+            <summary>
+            Creates an untyped service port for sending messages to a service instance
+            </summary>
+            <param name="uri">Service Uri</param>
+            <returns>Port instance</returns>
+        </member>
+        <member name="M:Microsoft.Dss.Hosting.DssEnvironment.CreateService(System.String)">
+            <summary>
+            Creates a service instance on the local node, using the contract identifier
+            </summary>
+            <param name="contract">Contract identifier for the service</param>
+            <returns>PortSet on which to result will be posted</returns>
+        </member>
+        <member name="M:Microsoft.Dss.Hosting.DssEnvironment.CreateService(System.String,Microsoft.Dss.ServiceModel.Dssp.PartnerType[])">
+            <summary>
+            Creates a service instance on the local node, using the contract identifier
+            </summary>
+            <param name="contract">Contract identifier for the service</param>
+            <param name="partners">Service partners</param>
+            <returns>PortSet on which to result will be posted</returns>
+        </member>
+        <member name="M:Microsoft.Dss.Hosting.DssEnvironment.CreateService(Microsoft.Dss.ServiceModel.Dssp.ServiceInfoType)">
+            <summary>
+            Creates a service instance on the local node, using the contract identifier
+            </summary>
+            <param name="serviceInformation">Service creation parameters</param>
+            <returns>PortSet on which to result will be posted</returns>
+        </member>
+        <member name="M:Microsoft.Dss.Hosting.DssEnvironment.DirectoryQuery(System.String)">
+            <summary>
+            Queries the local directory for a service instance URI given a contract identifier
+            </summary>
+            <param name="contract">Service contract identifier</param>
+            <returns>PortSet on which to result will be posted</returns>
+        </member>
+        <member name="M:Microsoft.Dss.Hosting.DssEnvironment.DirectoryQuery(System.String,System.TimeSpan)">
+            <summary>
+            Queries the local directory for a service instance URI given a contract identifier
+            </summary>
+            <param name="contract">Service contract identifier</param>
+            <param name="expiration">Timeout for query results</param>
+            <returns>PortSet on which to result will be posted</returns>
+        </member>
+        <member name="M:Microsoft.Dss.Hosting.DssEnvironment.DirectoryQuery(System.String,System.TimeSpan,Microsoft.Dss.ServiceModel.Dssp.DsspResponsePort{Microsoft.Dss.ServiceModel.Dssp.ServiceInfoType})">
+            <summary>
+            Queries the local directory for a service instance URI given a contract identifier
+            </summary>
+            <param name="contract">Service contract identifier</param>
+            <param name="expiration">Timeout for query results</param>
+            <param name="result">Result port to use for query results</param>
+            <returns>PortSet on which to result will be posted</returns>
+        </member>
+        <member name="M:Microsoft.Dss.Hosting.DssEnvironment.LogError(System.String)">
+            <summary>
+            Logs message with TraceLevel.Error
+            </summary>
+            <param name="message">Message to log.</param>
+        </member>
+        <member name="M:Microsoft.Dss.Hosting.DssEnvironment.LogWarning(System.String)">
+            <summary>
+            Logs message with TraceLevel.Warning
+            </summary>
+            <param name="message">Message to log.</param>
+        </member>
+        <member name="M:Microsoft.Dss.Hosting.DssEnvironment.LogInfo(System.String)">
+            <summary>
+            Logs message with TraceLevel.Info
+            </summary>
+            <param name="message">Message to log.</param>
+        </member>
+        <member name="M:Microsoft.Dss.Hosting.DssEnvironment.LogVerbose(System.String)">
+            <summary>
+            Logs message with TraceLevel.Verbose
+            </summary>
+            <param name="message">Message to log.</param>
+        </member>
+        <member name="M:Microsoft.Dss.Hosting.DssEnvironment.RegisterTypeForSerialization(System.Xml.XmlQualifiedName,System.Type)">
+            <summary>
+            Registers a type with the runtime so it can properly be serialized on the network
+            </summary>
+            <remarks>Use only for types that implement IDssSerializable directly and are not annotated with the DataContract attribute</remarks>
+            <param name="qualifiedName">Xml qualified name of the type</param>
+            <param name="serializableType">Type that needs to be serialized/deserialized and implements IDssSerializable</param>
+        </member>
+        <member name="M:Microsoft.Dss.Hosting.DssEnvironment.DoInitialize(Microsoft.Dss.Core.DssRuntimeConfiguration,System.Action,System.Action,System.Action{System.Exception})">
+            <summary>
+            Internal worker method that starts the dss node and reports back
+            when it is completely initialized and when it shutsdown.
+            </summary>
+            <param name="config">The config.</param>
+            <param name="initialized">Called when the node is initialized.</param>
+            <param name="shutdown">Called when the node is shutdown.</param>
+            <param name="error">Called if an exception is raised in the node
+            lifecycle management.</param>
+        </member>
+        <member name="P:Microsoft.Dss.Hosting.DssEnvironment.TaskQueue">
+            <summary>
+            CCR dispatcher queue for scheduling tasks
+            </summary>
+        </member>
+        <member name="P:Microsoft.Dss.Hosting.DssEnvironment.ControlPanelPort">
+            <summary>
+            Control panel service instance forwarder port
+            </summary>
+        </member>
+        <member name="P:Microsoft.Dss.Hosting.DssEnvironment.ConsoleOutputPort">
+            <summary>
+            Service port bound to Console Output Service
+            </summary>
+        </member>
+        <member name="P:Microsoft.Dss.Hosting.DssEnvironment.DirectoryPort">
+            <summary>
+            Service port bound to Directory Service
+            </summary>
+        </member>
+        <member name="T:Microsoft.Dss.Hosting.DssNode">
+            <summary>
+            Implements a reference to a DSS node started in another process.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Dss.Hosting.DssNode.LocalHostHttpUriFormat">
+            <summary>
+            Holds format string for local host HTTP uri.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Dss.Hosting.DssNode.LocalHostTcpUriFormat">
+            <summary>
+            Holds format string for local host TCP uri.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Dss.Hosting.DssNode.DssHostExeName">
+            <summary>
+            Holds name of DSS host executable.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Dss.Hosting.DssNode.DssHostExeArgumentsFormat">
+            <summary>
+            Holds format string for DSS host executable arguments.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Dss.Hosting.DssNode.AppDomainNameFormat">
+            <summary>
+            Holds the AppDomain name format.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Dss.Hosting.DssNode.process">
+            <summary>
+            Holds the remote process (if any).
+            </summary>
+        </member>
+        <member name="F:Microsoft.Dss.Hosting.DssNode.forwarderCache">
+            <summary>
+            Holds a cache of retrieved forwarders.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Dss.Hosting.DssNode.appDomain">
+            <summary>
+            Holds the appDomain for this instance (if any).
+            </summary>
+        </member>
+        <member name="F:Microsoft.Dss.Hosting.DssNode.inprocessNode">
+            <summary>
+            Holds the in process node (if any).
+            </summary>
+        </member>
+        <member name="M:Microsoft.Dss.Hosting.DssNode.#ctor(System.Uri,System.Uri)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.Dss.Hosting.DssNode"/> class.
+            </summary>
+            <param name="httpEndpoint">The HTTP endpoint.</param>
+            <param name="tcpEndpoint">The TCP endpoint.</param>
+            <remarks>This constructor is used when a node is already running remotely.</remarks>
+        </member>
+        <member name="M:Microsoft.Dss.Hosting.DssNode.#ctor(System.Int32,System.Int32)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.Dss.Hosting.DssNode"/> class.
+            </summary>
+            <param name="httpPort">The HTTP port.</param>
+            <param name="tcpPort">The TCP port.</param>
+            <remarks>This constructor is used when a node is already running.</remarks>
+        </member>
+        <member name="M:Microsoft.Dss.Hosting.DssNode.#ctor(System.Int32,System.Int32,System.String,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.Dss.Hosting.DssNode"/> class.
+            </summary>
+            <param name="httpPort">The HTTP port.</param>
+            <param name="tcpPort">The TCP port.</param>
+            <param name="manifestPath">The manifest path.</param>
+            <param name="securityPath">The securiy path.</param>
+            <remarks>This constructor is used when a new node should be started.</remarks>
+        </member>
+        <member name="M:Microsoft.Dss.Hosting.DssNode.#ctor(System.Int32,System.Int32,System.String,System.String,System.AppDomain)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.Dss.Hosting.DssNode"/> class.
+            </summary>
+            <param name="httpPort">The HTTP port.</param>
+            <param name="tcpPort">The TCP port.</param>
+            <param name="manifestPath">The manifest path.</param>
+            <param name="securityPath">The securiy path.</param>
+            <param name="appDomain">The app domain.</param>
+        </member>
+        <member name="M:Microsoft.Dss.Hosting.DssNode.Connect(System.Uri,System.Uri)">
+            <summary>
+            Connects the specified HTTP endpoint.
+            </summary>
+            <param name="httpEndpoint">The HTTP endpoint.</param>
+            <param name="tcpEndpoint">The TCP endpoint.</param>
+            <returns>A DssNode object.</returns>
+        </member>
+        <member name="M:Microsoft.Dss.Hosting.DssNode.Connect(System.Int32,System.Int32)">
+            <summary>
+            Connects a DSS service using the specified HTTP and TCP ports.
+            </summary>
+            <param name="httpPort">The HTTP port.</param>
+            <param name="tcpPort">The TCP port.</param>
+            <returns>A DssNode object.</returns>
+        </member>
+        <member name="M:Microsoft.Dss.Hosting.DssNode.CreateInNewProcess(System.Int32,System.Int32,System.String,System.String,System.String)">
+            <summary>
+            Starts a DSS node with the specified manifest path in a new process.
+            </summary>
+            <param name="httpPort">The HTTP port.</param>
+            <param name="tcpPort">The TCP port.</param>
+            <param name="hostRootDir">The host root dir.</param>
+            <param name="manifestPath">The manifest path.</param>
+            <param name="securityPath">The security path.</param>
+            <returns>A DssNode object.</returns>
+            <remarks>Changes System.Environment.CurrentDirectory to hostRootDir.</remarks>
+        </member>
+        <member name="M:Microsoft.Dss.Hosting.DssNode.CreateInNewAppDomain(System.Int32,System.Int32,System.String,System.String,System.String)">
+            <summary>
+            Starts a DSS node with the specified manifest path in a new AppDomain.
+            </summary>
+            <param name="httpPort">The HTTP port.</param>
+            <param name="tcpPort">The TCP port.</param>
+            <param name="hostRootDir">The host root dir.</param>
+            <param name="manifestPath">The manifest path.</param>
+            <param name="securityPath">The securiy path.</param>
+            <returns>A DssNode in a seperate AppDomain.</returns>
+            <remarks>Changes System.Environment.CurrentDirectory to hostRootDir.</remarks>
+        </member>
+        <member name="M:Microsoft.Dss.Hosting.DssNode.ClearForwarderCache">
+            <summary>
+            Clears the forwarder cache.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Dss.Hosting.DssNode.ServiceForwarder``1">
+            <summary>
+            Creates a service forwarder for the specified service type using the TCP base URI.
+            </summary>
+            <typeparam name="T">Service type for which a forwarder is needed.</typeparam>
+            <returns>A port where the service forwarder is posted once found.</returns>
+        </member>
+        <member name="M:Microsoft.Dss.Hosting.DssNode.ServiceForwarder``1(System.Uri)">
+            <summary>
+            Creates a service forwarder for the specified service type using a service base URI.
+            </summary>
+            <typeparam name="T">Service type for which a forwarder is needed.</typeparam>
+            <param name="baseUri">The base URI.</param>
+            <returns>A port where the service forwarder is posted once found.</returns>
+        </member>
+        <member name="M:Microsoft.Dss.Hosting.DssNode.WaitForService(System.String,System.TimeSpan)">
+            <summary>
+            Waits for service to be available.
+            </summary>
+            <param name="contract">The contract.</param>
+            <param name="timeout">The timeout.</param>
+            <returns>A port where result is posted; null if service is not available (within timeout).</returns>
+        </member>
+        <member name="M:Microsoft.Dss.Hosting.DssNode.Stop(System.TimeSpan)">
+            <summary>
+            Stops the DssNode using the specified timeout.
+            </summary>
+            <param name="timeout">The timeout.</param>
+            <returns>A port where an EmptyValue is posted once the Stop operation is complete.</returns>
+            <remarks>
+            For in process nodes using a seperate app domain, the timeout may be used twice;
+            Once when trying to stop the node clean and once when waiting for DSS environment
+            to shut down. If a seperate process is used it is killed if clean shutdown fails.
+            </remarks>
+        </member>
+        <member name="M:Microsoft.Dss.Hosting.DssNode.Dispose">
+            <summary>
+            Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+            </summary>
+            <filterpriority>2</filterpriority>
+        </member>
+        <member name="M:Microsoft.Dss.Hosting.DssNode.DoServiceForwarder``1(System.Uri,Microsoft.Ccr.Core.PortSet{``0,System.Exception})">
+            <summary>
+            Does the work of finding a service forwarder
+            </summary>
+            <typeparam name="T">Service type for which a forwarder is needed.</typeparam>
+            <param name="baseUri">The base URI.</param>
+            <param name="resultPort">The result port.</param>
+            <returns>Task enumerator.</returns>
+        </member>
+        <member name="M:Microsoft.Dss.Hosting.DssNode.DoWaitForService(System.String,System.TimeSpan,Microsoft.Ccr.Core.Port{Microsoft.Dss.ServiceModel.Dssp.ServiceInfoType})">
+            <summary>
+            Completes the waiting operation for a service.
+            </summary>
+            <param name="contract">The contract of service to wait for.</param>
+            <param name="timeout">The timeout.</param>
+            <param name="resultPort">The result port; null if service is not found</param>
+            <returns>Task enumeratior.</returns>
+        </member>
+        <member name="M:Microsoft.Dss.Hosting.DssNode.DoStop(System.TimeSpan,Microsoft.Ccr.Core.Port{Microsoft.Ccr.Core.EmptyValue})">
+            <summary>
+            Executes the Stop operation.
+            </summary>
+            <param name="timeout">The timeout.</param>
+            <param name="completionPort">The completion port.</param>
+            <returns>Task enumeration.</returns>
+        </member>
+        <member name="M:Microsoft.Dss.Hosting.DssNode.Dispose(System.Boolean)">
+            <summary>
+            Releases unmanaged and - optionally - managed resources
+            </summary>
+            <param name="disposing"><c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.</param>
+        </member>
+        <member name="M:Microsoft.Dss.Hosting.DssNode.UnloadAppDomain">
+            <summary>
+            Unloads the app domain.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Dss.Hosting.DssNode.WaitForDirectoryService(System.TimeSpan,Microsoft.Ccr.Core.Port{Microsoft.Dss.ServiceModel.Dssp.ServiceInfoType})">
+            <summary>
+            Waits for the directory service.
+            </summary>
+            <param name="timeout">The timeout.</param>
+            <param name="resultPort">Port where result is posted; null if service is not found.</param>
+            <returns>Task enumerator.</returns>
+        </member>
+        <member name="M:Microsoft.Dss.Hosting.DssNode.FindForwarderInCache(System.Type)">
+            <summary>
+            Finds the forwarder in cache.
+            </summary>
+            <param name="type">The type to find in the cache.</param>
+            <returns>A cached forwarder or NULL if not found.</returns>
+        </member>
+        <member name="P:Microsoft.Dss.Hosting.DssNode.Queue">
+            <summary>
+            Gets the dispatcher queue.
+            </summary>
+            <value>The dispatcher queue.</value>
+        </member>
+        <member name="P:Microsoft.Dss.Hosting.DssNode.HttpEndpoint">
+            <summary>
+            Gets the HTTP endpoint.
+            </summary>
+            <value>The HTTP endpoint.</value>
+        </member>
+        <member name="P:Microsoft.Dss.Hosting.DssNode.TcpEndpoint">
+            <summary>
+            Gets the TCP endpoint.
+            </summary>
+            <value>The TCP endpoint.</value>
+        </member>
+        <member name="P:Microsoft.Dss.Hosting.DssNode.ProcessId">
+            <summary>
+            Gets the process id.
+            </summary>
+            <value>The process id.</value>
+        </member>
+        <member name="T:Microsoft.Dss.Hosting.DssNode.DssNodeInstance">
+            <summary>
+            Implements a DSS node instance
+            </summary>
+        </member>
+        <member name="M:Microsoft.Dss.Hosting.DssNode.DssNodeInstance.Initialize(System.Int32,System.Int32,System.String,System.String)">
+            <summary>
+            Initializes the specified HTTP port.
+            </summary>
+            <param name="httpPort">The HTTP port.</param>
+            <param name="tcpPort">The TCP port.</param>
+            <param name="manifestPath">The manifest path.</param>
+            <param name="securityPath">The securiy path.</param>
+        </member>
+        <member name="M:Microsoft.Dss.Hosting.DssNode.DssNodeInstance.Stop">
+            <summary>
+            Stops this instance.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Dss.Hosting.DssNode.DssNodeInstance.WaitForShutdown">
+            <summary>
+            Waits for shutdown.
+            </summary>
+        </member>
+    </members>
+</doc>

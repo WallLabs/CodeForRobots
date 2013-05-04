@@ -1,0 +1,600 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Microsoft.Ccr.Adapters.IO</name>
+    </assembly>
+    <members>
+        <member name="T:Microsoft.Ccr.Adapters.Asp.CcrPage">
+            <summary>
+            Base class for Asp.NET pages that use CCR
+            </summary>
+        </member>
+        <member name="M:Microsoft.Ccr.Adapters.Asp.CcrPage.#ctor">
+            <summary>
+            Default ctor. The TaskQueue field must be populated before this
+            class can usefully interact with CCR.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Ccr.Adapters.Asp.CcrPage.#ctor(Microsoft.Ccr.Core.DispatcherQueue)">
+            <summary>
+            Initialising ctor.
+            </summary>
+            <param name="taskQueue">The dispatcher queue to activate tasks on</param>
+        </member>
+        <member name="F:Microsoft.Ccr.Adapters.Asp.CcrPage.TaskQueue">
+            <summary>
+            The dispatcher queue that this class uses when it needs to enqueue a task.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Ccr.Adapters.Asp.CcrPage.Activate``1(``0[])">
+            <summary>
+            Enqueue tasks.
+            </summary>
+            <typeparam name="T">ITask</typeparam>
+            <param name="tasks">The tasks to enqueue</param>
+        </member>
+        <member name="M:Microsoft.Ccr.Adapters.Asp.CcrPage.EmptyHandler``1(``0)">
+            <summary>
+            A utility method for doing nothing in an arbiter.
+            </summary>
+            <typeparam name="T">The port message type</typeparam>
+            <param name="message">The port parameter</param>
+        </member>
+        <member name="M:Microsoft.Ccr.Adapters.Asp.CcrPage.Spawn(Microsoft.Ccr.Core.Handler)">
+            <summary>
+            Execute a simple handler concurrently
+            </summary>
+            <param name="handler">The handler to execute</param>
+        </member>
+        <member name="M:Microsoft.Ccr.Adapters.Asp.CcrPage.Spawn``1(``0,Microsoft.Ccr.Core.Handler{``0})">
+            <summary>
+            Execute a handler concurrently
+            </summary>
+            <typeparam name="T0">The type of the first argument for the handler</typeparam>
+            <param name="t0">The first argument</param>
+            <param name="handler">The handler to execute</param>
+        </member>
+        <member name="M:Microsoft.Ccr.Adapters.Asp.CcrPage.Spawn``2(``0,``1,Microsoft.Ccr.Core.Handler{``0,``1})">
+            <summary>
+            Execute a handler concurrently
+            </summary>
+            <typeparam name="T0">The type of the first argument for the handler</typeparam>
+            <typeparam name="T1">The type of the second argument for the handler</typeparam>
+            <param name="t0">The first argument</param>
+            <param name="t1">The second argument</param>
+            <param name="handler">The handler to execute</param>
+        </member>
+        <member name="M:Microsoft.Ccr.Adapters.Asp.CcrPage.Spawn``3(``0,``1,``2,Microsoft.Ccr.Core.Handler{``0,``1,``2})">
+            <summary>
+            Execute a handler concurrently
+            </summary>
+            <typeparam name="T0">The type of the first argument for the handler</typeparam>
+            <typeparam name="T1">The type of the second argument for the handler</typeparam>
+            <typeparam name="T2">The type of the third argument for the handler</typeparam>
+            <param name="t0">The first argument</param>
+            <param name="t1">The second argument</param>
+            <param name="t2">The third argument</param>
+            <param name="handler">The handler to execute</param>
+        </member>
+        <member name="M:Microsoft.Ccr.Adapters.Asp.CcrPage.SpawnIterator(Microsoft.Ccr.Core.IteratorHandler)">
+            <summary>
+            Execute a simple iterative handler concurrently
+            </summary>
+            <param name="handler">The handler to execute</param>
+        </member>
+        <member name="M:Microsoft.Ccr.Adapters.Asp.CcrPage.SpawnIterator``1(``0,Microsoft.Ccr.Core.IteratorHandler{``0})">
+            <summary>
+            Execute an iterative handler concurrently
+            </summary>
+            <typeparam name="T0">The type of the first argument for the handler</typeparam>
+            <param name="t0">The first argument</param>
+            <param name="handler">The handler to execute</param>
+        </member>
+        <member name="M:Microsoft.Ccr.Adapters.Asp.CcrPage.SpawnIterator``2(``0,``1,Microsoft.Ccr.Core.IteratorHandler{``0,``1})">
+            <summary>
+            Execute an iterative handler concurrently
+            </summary>
+            <typeparam name="T0">The type of the first argument for the handler</typeparam>
+            <typeparam name="T1">The type of the second argument for the handler</typeparam>
+            <param name="t0">The first argument</param>
+            <param name="t1">The second argument</param>
+            <param name="handler">The handler to execute</param>
+        </member>
+        <member name="M:Microsoft.Ccr.Adapters.Asp.CcrPage.SpawnIterator``3(``0,``1,``2,Microsoft.Ccr.Core.IteratorHandler{``0,``1,``2})">
+            <summary>
+            Execute an iterative handler concurrently
+            </summary>
+            <typeparam name="T0">The type of the first argument for the handler</typeparam>
+            <typeparam name="T1">The type of the second argument for the handler</typeparam>
+            <typeparam name="T2">The type of the third argument for the handler</typeparam>
+            <param name="t0">The first argument</param>
+            <param name="t1">The second argument</param>
+            <param name="t2">The third argument</param>
+            <param name="handler">The handler to execute</param>
+        </member>
+        <member name="M:Microsoft.Ccr.Adapters.Asp.CcrPage.TimeoutPort(System.Int32)">
+            <summary>
+            Create a timeout port
+            </summary>
+            <param name="milliseconds">Number of milliseconds until a DateTime is posted on the result port</param>
+            <returns>A port on which a DateTime will be posted after the appropriate interval</returns>
+        </member>
+        <member name="M:Microsoft.Ccr.Adapters.Asp.CcrPage.TimeoutPort(System.TimeSpan)">
+            <summary>
+            Create a timeout port
+            </summary>
+            <param name="timespan">Timespan until a DateTime is posted on the result port</param>
+            <returns>A port on which a DateTime will be posted after the appropriate interval</returns>
+        </member>
+        <member name="M:Microsoft.Ccr.Adapters.Asp.CcrPage.StartAsyncTask">
+            <summary>
+            Starts an asynchronous task. The page will not complete the prerender
+            phase until this task is completed. Indicate completion of the task by posting
+            to the SuccessFailurePort that this returns.
+            If the async task is not completed before the page timeout, then a token will
+            be posted to the AsyncTaskTimeoutPort.
+            </summary>
+            <returns>The completion port. Post to this port when asynchronous processing is completed.</returns>
+        </member>
+        <member name="F:Microsoft.Ccr.Adapters.Asp.CcrPage.AsyncTaskTimeoutPort">
+            <summary>
+            This port will have a token posted to it if the page prerender phase takes longer
+            than the configured timeout. If a handler activated on this port is fired it
+            should repost the token to ensure that any other handlers on this port also
+            receive the timeout.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Ccr.Adapters.Asp.CcrPage.OnAsyncTimeout(Microsoft.Ccr.Core.Handler)">
+            <summary>
+            Timeout helper. This returns a task that will be executed if there is
+            a timeout during prerender.
+            </summary>
+            <param name="handler">A handler to execute when there is a timeout.</param>
+            <returns>A task that can be used as a branch in a choice.</returns>
+        </member>
+        <member name="M:Microsoft.Ccr.Adapters.Asp.CcrPage.OnAsyncTimout">
+            <summary>
+            Timeout helper. This returns a task that will be executed if there is
+            a timeout during prerender.
+            </summary>
+            <returns>A task that can be used as a branch in a choice.</returns>
+        </member>
+        <member name="M:Microsoft.Ccr.Adapters.Asp.CcrPage.EmptyHandler">
+            <summary>
+            A utility method for doing nothing in an arbiter.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Ccr.Adapters.Asp.CcrPage.AsyncOperationTimedOut">
+            <summary>
+            Gets a value that indicates whether an async operation has timed out.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Ccr.Adapters.Asp.CcrHttpApplication">
+            <summary>
+            Base class for an application, declared in a global.asax file, that will use CCR.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Ccr.Adapters.Asp.CcrHttpApplication.Initialize">
+            <summary>
+            Creates a CCR Dispatcher and DispatcherQueue
+            </summary>
+            <remarks>
+            The dispatcher will be created with a default number of threads, this
+            is typically the same as the number of processor cores on the machine
+            </remarks>
+        </member>
+        <member name="M:Microsoft.Ccr.Adapters.Asp.CcrHttpApplication.Initialize(System.Int32)">
+            <summary>
+            Creates a CCR Dispatcher and DispatcherQueue
+            </summary>
+            <param name="threadCount">The number of threads to create, 0 uses the same as the number
+            of processor cores on the machine.</param>
+        </member>
+        <member name="M:Microsoft.Ccr.Adapters.Asp.CcrHttpApplication.Initialize(System.Int32,System.String)">
+            <summary>
+            Creates as CCR Dispatcher and DispatcherQueue
+            </summary>
+            <param name="threadCount">The number of threads to create, 0 uses the same as the number of 
+            processor cores on the machine.</param>
+            <param name="threadPoolName">A name for the dispatcher.</param>
+        </member>
+        <member name="M:Microsoft.Ccr.Adapters.Asp.CcrHttpApplication.Shutdown">
+            <summary>
+            Shutdown the Dispatcher and DispatcherQueue associated with this application instance.
+            </summary>
+            <remarks>This causes pending tasks not currently being executed to be discarded.</remarks>
+        </member>
+        <member name="P:Microsoft.Ccr.Adapters.Asp.CcrHttpApplication.TaskQueue">
+            <summary>
+            The default DispatcherQueue associated with this application.
+            </summary>
+            <remarks>This will be null before Initialize() is called.</remarks>
+        </member>
+        <member name="T:Microsoft.Ccr.Win32Interop.CcrWin32ThreadingInterop">
+            <summary>
+            Win32 Thread interopability helpers
+            </summary>
+        </member>
+        <member name="M:Microsoft.Ccr.Win32Interop.CcrWin32ThreadingInterop.GetCurrentThread">
+            <summary>
+            Returns current Win32 thread handle
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.Ccr.Win32Interop.CcrWin32ThreadingInterop.GetCurrentProcess">
+            <summary>
+            Returns current Win32 process handle
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.Ccr.Win32Interop.CcrWin32ThreadingInterop.SetThreadPriority(System.IntPtr,Microsoft.Ccr.Win32Interop.CcrWin32ThreadingInterop.ThreadPriority)">
+            <summary>
+            Sets Win32 thread priority
+            </summary>
+            <param name="thread"></param>
+            <param name="priority"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.Ccr.Win32Interop.CcrWin32ThreadingInterop.SetPriorityClass(System.IntPtr,Microsoft.Ccr.Win32Interop.CcrWin32ThreadingInterop.PriorityClass)">
+            <summary>
+            Sets Win32 process priority class
+            </summary>
+            <param name="process"></param>
+            <param name="priority"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.Ccr.Win32Interop.CcrWin32ThreadingInterop.GetThreadPriority(System.IntPtr)">
+            <summary>
+            Returns current Win32 thread priority
+            </summary>
+            <param name="thread"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.Ccr.Win32Interop.CcrWin32ThreadingInterop.GetPriorityClass(System.IntPtr)">
+            <summary>
+            Returns current Win32 process priority
+            </summary>
+            <param name="process"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Microsoft.Ccr.Win32Interop.CcrWin32ThreadingInterop.PriorityClass">
+            <summary>
+            Win32 Process priority. Refer to Win32 documentation for detailed description of process priority levels
+            </summary>
+            <remarks>For certain priority values the current execution context must have administrator privileges</remarks>
+        </member>
+        <member name="F:Microsoft.Ccr.Win32Interop.CcrWin32ThreadingInterop.PriorityClass.AboveNormal">
+            <summary>
+            Above Normal
+            </summary>
+        </member>
+        <member name="F:Microsoft.Ccr.Win32Interop.CcrWin32ThreadingInterop.PriorityClass.BelowNormal">
+            <summary>
+            Below Normal
+            </summary>
+        </member>
+        <member name="F:Microsoft.Ccr.Win32Interop.CcrWin32ThreadingInterop.PriorityClass.High">
+            <summary>
+            High
+            </summary>
+        </member>
+        <member name="F:Microsoft.Ccr.Win32Interop.CcrWin32ThreadingInterop.PriorityClass.Idle">
+            <summary>
+            Idle
+            </summary>
+        </member>
+        <member name="F:Microsoft.Ccr.Win32Interop.CcrWin32ThreadingInterop.PriorityClass.Normal">
+            <summary>
+            Normal
+            </summary>
+        </member>
+        <member name="F:Microsoft.Ccr.Win32Interop.CcrWin32ThreadingInterop.PriorityClass.Realtime">
+            <summary>
+            Realtime
+            </summary>
+        </member>
+        <member name="T:Microsoft.Ccr.Win32Interop.CcrWin32ThreadingInterop.ThreadPriority">
+            <summary>
+            Win32 Thread priority. Refer to Win32 documentation for detailed description of thread priority levels
+            </summary>
+            <remarks>Process priority level must be set for certain thread priority levels</remarks>
+        </member>
+        <member name="F:Microsoft.Ccr.Win32Interop.CcrWin32ThreadingInterop.ThreadPriority.AboveNormal">
+            <summary>
+            Above normal
+            </summary>
+        </member>
+        <member name="F:Microsoft.Ccr.Win32Interop.CcrWin32ThreadingInterop.ThreadPriority.BelowNormal">
+            <summary>
+            Below normal
+            </summary>
+        </member>
+        <member name="F:Microsoft.Ccr.Win32Interop.CcrWin32ThreadingInterop.ThreadPriority.Highest">
+            <summary>
+            Highest
+            </summary>
+        </member>
+        <member name="F:Microsoft.Ccr.Win32Interop.CcrWin32ThreadingInterop.ThreadPriority.Idle">
+            <summary>
+            Idle
+            </summary>
+        </member>
+        <member name="F:Microsoft.Ccr.Win32Interop.CcrWin32ThreadingInterop.ThreadPriority.Lowest">
+            <summary>
+            Lowest
+            </summary>
+        </member>
+        <member name="F:Microsoft.Ccr.Win32Interop.CcrWin32ThreadingInterop.ThreadPriority.Normal">
+            <summary>
+            Normal
+            </summary>
+        </member>
+        <member name="F:Microsoft.Ccr.Win32Interop.CcrWin32ThreadingInterop.ThreadPriority.TimeCritical">
+            <summary>
+            Time critical
+            </summary>
+        </member>
+        <member name="T:Microsoft.Ccr.Adapters.IO.StreamIoResultPort">
+            <summary>
+            PortSet for receiving asynchronous streaming results
+            </summary>
+        </member>
+        <member name="T:Microsoft.Ccr.Adapters.IO.StreamAdapter">
+            <summary>
+            CCR to stream operations adapter
+            </summary>
+        </member>
+        <member name="M:Microsoft.Ccr.Adapters.IO.StreamAdapter.ReadAll(System.IO.Stream,System.Byte[],System.Int32,System.Int32,Microsoft.Ccr.Core.DispatcherQueue)">
+            <summary>
+            Asynchronously read from a stream. When all the requested data have been read a result is 
+            posted to the returned result port.
+            </summary>
+            <param name="stream">The stream to read the data from.</param>
+            <param name="buffer">The buffer to read the data into.</param>
+            <param name="offset">The byte offset in buffer at which to begin writing data read from the stream.</param>
+            <param name="count">The maximum number of bytes to read.</param>
+            <param name="dispatcherQueue">Queue on which tasks will be scheduled as necessary to perform this read</param>
+            <returns>A result port on which success or exceptions are posted.</returns>
+        </member>
+        <member name="M:Microsoft.Ccr.Adapters.IO.StreamAdapter.Read(System.IO.Stream,System.Byte[],System.Int32,System.Int32)">
+            <summary>
+            Reads from a stream asynchronously.
+            </summary>
+            <param name="stream">the stream to read from</param>
+            <param name="buffer">the buffer to read into</param>
+            <param name="offset">the start index into the buffer</param>
+            <param name="count">the number of bytes to read</param>
+            <returns>A portset for the result of the operation (number of bytes read or exception)</returns>
+        </member>
+        <member name="M:Microsoft.Ccr.Adapters.IO.StreamAdapter.Read(System.IO.Stream,System.Byte[],System.Int32,System.Int32,Microsoft.Ccr.Core.PortSet{System.Int32,System.Exception})">
+            <summary>
+            Reads from a stream asynchronously.
+            </summary>
+            <param name="stream">the stream to read from</param>
+            <param name="buffer">the buffer to read into</param>
+            <param name="offset">the start index into the buffer</param>
+            <param name="count">the number of bytes to read</param>
+            <param name="resultPort">A portset for the result of the operation (number of bytes read or exception)</param>
+            <returns>the portset passed in resultPort</returns>
+        </member>
+        <member name="M:Microsoft.Ccr.Adapters.IO.StreamAdapter.Write(System.IO.Stream,System.Byte[],System.Int32,System.Int32)">
+            <summary>
+            Writes to a stream asynchronously
+            </summary>
+            <param name="stream">the stream to write to</param>
+            <param name="buffer">the buffer to write from</param>
+            <param name="offset">the start index into the buffer</param>
+            <param name="count">number of bytes to write</param>
+            <returns>A portset for the result of the operation (success (EmptyValue) or exception)</returns>
+        </member>
+        <member name="M:Microsoft.Ccr.Adapters.IO.StreamAdapter.Write(System.IO.Stream,System.Byte[],System.Int32,System.Int32,Microsoft.Ccr.Core.PortSet{Microsoft.Ccr.Core.EmptyValue,System.Exception})">
+            <summary>
+            Writes to a stream asynchronously
+            </summary>
+            <param name="stream">the stream to write to</param>
+            <param name="buffer">the buffer to write from</param>
+            <param name="offset">the start index into the buffer</param>
+            <param name="count">number of bytes to write</param>
+            <param name="resultPort">A portset for the result of the operation (success (EmptyValue) or exception)</param>
+            <returns>the portset passed in resultPort</returns>
+        </member>
+        <member name="T:Microsoft.Ccr.Adapters.IO.ScatterGather">
+            <summary>
+            Higher level coordination pattern that schedules concurrent tasks and aggregates the results of the
+            computation or I/O
+            </summary>
+        </member>
+        <member name="M:Microsoft.Ccr.Adapters.IO.ScatterGather.Activate``2(Microsoft.Ccr.Core.DispatcherQueue,System.Int32,Microsoft.Ccr.Core.IteratorHandler{System.Int32,``0,Microsoft.Ccr.Core.Port{``1}},``0[])">
+            <summary>
+            Activate a scatter/gather operation that concurrently executes the iterator delegate
+            and aggregates the results in a portset.
+            </summary>
+            <typeparam name="T">Computation parameter</typeparam>
+            <typeparam name="TResult">Result of each independent computation task</typeparam>
+            <param name="taskQueue">DispatcherQueue instance to schedule tasks</param>
+            <param name="iteratorHandler">Iterative task that will execute concurrently</param>
+            <param name="count">Number of concurrent execution steps</param>
+            <param name="taskParameters">Optional collection of task specific parameters</param>
+            <returns>PortSet instance that will hold the operation results</returns>
+        </member>
+        <member name="M:Microsoft.Ccr.Adapters.IO.ScatterGather.Activate``2(Microsoft.Ccr.Core.DispatcherQueue,System.Int32,System.Int32,Microsoft.Ccr.Core.IteratorHandler{System.Int32,``0,Microsoft.Ccr.Core.Port{``1}},``0[])">
+            <summary>
+            Activate a scatter/gather operation that concurrently executes the computation delegate
+            and aggregates the results in a portset.
+            </summary>
+            <typeparam name="T">Computation parameter</typeparam>
+            <typeparam name="TResult">Result of each independent computation task</typeparam>
+            <param name="taskQueue">DispatcherQueue instance to schedule tasks</param>
+            <param name="iteratorHandler">Iterative task that will execute concurrently</param>
+            <param name="toExclusive">Upper bound for scatter iteration</param>
+            <param name="fromInclusive">Lower bound for scatter iteration</param>
+            <param name="taskParameters">Optional collection of task specific parameters</param>
+            <returns>PortSet instance that will hold the operation results</returns>
+        </member>
+        <member name="M:Microsoft.Ccr.Adapters.IO.ScatterGather.Activate``2(Microsoft.Ccr.Core.DispatcherQueue,System.Int32,System.Func{System.Int32,``0,``1},``0[])">
+            <summary>
+            Activate a scatter/gather operation that concurrently executes the computation delegate
+            and aggregates the results in a portset.
+            </summary>
+            <typeparam name="T">Computation parameter</typeparam>
+            <typeparam name="TResult">Result of each independent computation task</typeparam>
+            <param name="taskQueue">DispatcherQueue instance to schedule tasks</param>
+            <param name="computation">Delegate that will execute concurrently</param>
+            <param name="count">Number of concurrent execution steps</param>
+            <param name="taskParameters">Optional collection of task specific parameters</param>
+            <returns>PortSet instance that will hold the operation results</returns>
+        </member>
+        <member name="M:Microsoft.Ccr.Adapters.IO.ScatterGather.Activate``2(Microsoft.Ccr.Core.DispatcherQueue,System.Int32,System.Int32,System.Func{System.Int32,``0,``1},``0[])">
+            <summary>
+            Activate a scatter/gather operation that concurrently executes the computation delegate
+            and aggregates the results in a portset.
+            </summary>
+            <typeparam name="T">Computation parameter</typeparam>
+            <typeparam name="TResult">Result of each independent computation task</typeparam>
+            <param name="taskQueue">DispatcherQueue instance to schedule tasks</param>
+            <param name="computation">Delegate that will execute concurrently</param>
+            <param name="toExclusive">Upper bound for scatter iteration</param>
+            <param name="fromInclusive">Lower bound for scatter iteration</param>
+            <param name="taskParameters">Optional collection of task specific parameters</param>
+            <returns>PortSet instance that will hold the operation results</returns>
+        </member>
+        <member name="T:Microsoft.Ccr.Adapters.IO.SynchronousArbiter">
+            <summary>
+            Implements synchrnous CCR port helpers sutable for unit test code.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Ccr.Adapters.IO.SynchronousArbiter.taskQueueOwned">
+            <summary>
+            Indicates if task queue is owned by object or not.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Ccr.Adapters.IO.SynchronousArbiter.taskQueue">
+            <summary>
+            Holds the dispatcher queue to use.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Ccr.Adapters.IO.SynchronousArbiter.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.Ccr.Adapters.IO.SynchronousArbiter"/> class.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Ccr.Adapters.IO.SynchronousArbiter.#ctor(Microsoft.Ccr.Core.DispatcherQueue)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.Ccr.Adapters.IO.SynchronousArbiter"/> class.
+            </summary>
+            <param name="dispatcherQueue">The dispatcher queue.</param>
+        </member>
+        <member name="M:Microsoft.Ccr.Adapters.IO.SynchronousArbiter.#ctor(Microsoft.Ccr.Core.DispatcherQueue,System.Boolean)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.Ccr.Adapters.IO.SynchronousArbiter"/> class.
+            </summary>
+            <param name="dispatcherQueue">The dispatcher queue.</param>
+            <param name="takeOwnershipOfTaskQueue">If set to <c>true</c> the dispatcher queue will be disposed with this object.</param>
+        </member>
+        <member name="M:Microsoft.Ccr.Adapters.IO.SynchronousArbiter.Receive``1(Microsoft.Ccr.Core.Port{``0},Microsoft.Ccr.Core.Handler{``0})">
+            <summary>
+            Synchronously receives on the specified port.
+            </summary>
+            <typeparam name="T">Type on port</typeparam>
+            <param name="port">The port to receive on.</param>
+            <param name="handler">The handler.</param>
+            <returns>True if receive was successful, otherwise false.</returns>
+        </member>
+        <member name="M:Microsoft.Ccr.Adapters.IO.SynchronousArbiter.Receive``1(Microsoft.Ccr.Core.Port{``0},Microsoft.Ccr.Core.Handler{``0},System.TimeSpan)">
+            <summary>
+            Synchronously receives on the specified port.
+            </summary>
+            <typeparam name="T">Type on port</typeparam>
+            <param name="port">The port to receive on.</param>
+            <param name="handler">The handler.</param>
+            <param name="timeout">The timeout. If negative no timeout is used.</param>
+            <returns>True if receive was successful, otherwise false.</returns>
+        </member>
+        <member name="M:Microsoft.Ccr.Adapters.IO.SynchronousArbiter.Choice``2(Microsoft.Ccr.Core.PortSet{``0,``1},Microsoft.Ccr.Core.Handler{``0},Microsoft.Ccr.Core.Handler{``1})">
+            <summary>
+            Synchronously completes a choices on the specified port set.
+            </summary>
+            <typeparam name="T0">The first type in port set.</typeparam>
+            <typeparam name="T1">The second type in port set.</typeparam>
+            <param name="portSet">The port set.</param>
+            <param name="handler0">Delegate for message type T0.</param>
+            <param name="handler1">Delegate for message type T1.</param>
+            <returns>True if choice executed to completion, otherwise false.</returns>
+        </member>
+        <member name="M:Microsoft.Ccr.Adapters.IO.SynchronousArbiter.Choice``2(Microsoft.Ccr.Core.PortSet{``0,``1},Microsoft.Ccr.Core.Handler{``0},Microsoft.Ccr.Core.Handler{``1},System.TimeSpan)">
+            <summary>
+            Synchronously completes a choices on the specified port set.
+            </summary>
+            <typeparam name="T0">The first type in port set.</typeparam>
+            <typeparam name="T1">The second type in port set.</typeparam>
+            <param name="portSet">The port set.</param>
+            <param name="handler0">Delegate for message type T0.</param>
+            <param name="handler1">Delegate for message type T1.</param>
+            <param name="timeout">The timeout. If negative no timeout is used.</param>
+            <returns>True if choice executed to completion, otherwise false.</returns>
+        </member>
+        <member name="M:Microsoft.Ccr.Adapters.IO.SynchronousArbiter.Dispose">
+            <summary>
+            Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+            </summary>
+            <filterpriority>2</filterpriority>
+        </member>
+        <member name="M:Microsoft.Ccr.Adapters.IO.SynchronousArbiter.Dispose(System.Boolean)">
+            <summary>
+            Releases unmanaged and - optionally - managed resources
+            </summary>
+            <param name="disposing"><c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.</param>
+        </member>
+        <member name="T:Microsoft.Ccr.Adapters.IO.WebRequestAdapter">
+            <summary>
+            CCR to asynchronous web request adapter
+            </summary>
+        </member>
+        <member name="M:Microsoft.Ccr.Adapters.IO.WebRequestAdapter.ReadResponse(System.Net.WebRequest,Microsoft.Ccr.Core.DispatcherQueue)">
+            <summary>
+            Asynchronously read a response from a web request.
+            </summary>
+            <param name="request">A request that has not been issued, GetResponse or BeginGetResponse have not been called.</param>
+            <param name="dispatcherQueue">A Dispatcher Queue on which all tasks involved will be scheduled</param>
+            <returns>PortSet with operation result</returns>
+        </member>
+        <member name="M:Microsoft.Ccr.Adapters.IO.WebRequestAdapter.ReadResponse(System.Net.WebRequest,Microsoft.Ccr.Core.PortSet{System.Byte[],System.Exception},Microsoft.Ccr.Core.DispatcherQueue)">
+            <summary>
+            Asynchronously read a response from a web request.
+            </summary>
+            <param name="request">A request that has not been issued, GetResponse or BeginGetResponse have not been called.</param>
+            <param name="resultPort">PortSet instance for operation results</param>
+            <param name="dispatcherQueue">A Dispatcher Queue on which all tasks involved will be scheduled</param>
+            <returns>PortSet with operation result</returns>
+        </member>
+        <member name="M:Microsoft.Ccr.Adapters.IO.WebRequestAdapter.ReadResponse(System.Net.WebRequest,System.Int32,Microsoft.Ccr.Core.DispatcherQueue)">
+            <summary>
+            Asynchronously retrieve response stream, then read data a packet at a time, submitting a packets work of data to the result port
+            </summary>
+            <remarks>
+            The method will post a packet worth of data to the result port until the response is read in full. It will then post
+            the total read to indicate completion.
+            If an exception is thrown while reading data, then the total amount read to that point will be posted.
+            </remarks>
+            <param name="request">Http request that has not been issued (GetResponse or BeginGetResponse has not been called)</param>
+            <param name="streamingPacketSize">Size in bytes, of response data to read at one time, until response is read in full</param>
+            <param name="dispatcherQueue">DispatcherQueue on which tasks needed to perform this operation will be scheduled</param>
+            <returns>PortSet with operation result</returns>
+        </member>
+        <member name="M:Microsoft.Ccr.Adapters.IO.WebRequestAdapter.ReadResponse(System.Net.WebRequest,System.Int32,Microsoft.Ccr.Adapters.IO.StreamIoResultPort,Microsoft.Ccr.Core.DispatcherQueue)">
+            <summary>
+            Asynchronously retrieve response stream, then read data a packet at a time, submitting a packets work of data to the result port
+            </summary>
+            <remarks>
+            The method will post a packet worth of data to the result port until the response is read in full. It will then post
+            the total read to indicate completion.
+            If an exception is thrown while reading data, then the total amount read to that point will be posted.
+            </remarks>
+            <param name="request">Http request that has not been issued (GetResponse or BeginGetResponse has not been called)</param>
+            <param name="streamingPacketSize">Size in bytes, of response data to read at one time, until response is read in full</param>
+            <param name="resultPort">PortSet instance used to post operation result</param>
+            <param name="dispatcherQueue">DispatcherQueue on which tasks needed to perform this operation will be scheduled</param>
+            <returns>PortSet with operation result</returns>
+        </member>
+    </members>
+</doc>
