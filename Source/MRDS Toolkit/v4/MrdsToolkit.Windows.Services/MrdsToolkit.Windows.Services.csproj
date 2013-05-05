@@ -50,19 +50,52 @@
     <AssemblyOriginatorKeyFile>..\MRDS Toolkit.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.Ccr.Adapters.IO, Version=4.0.261.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dependencies\Microsoft\Robotics\v4.0\Microsoft.Ccr.Adapters.IO.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Ccr.Adapters.WinForms, Version=4.0.261.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dependencies\Microsoft\Robotics\v4.0\Microsoft.Ccr.Adapters.WinForms.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Ccr.Adapters.Wpf, Version=4.0.261.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dependencies\Microsoft\Robotics\v4.0\Microsoft.Ccr.Adapters.Wpf.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Ccr.Core, Version=4.0.261.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Dependencies\Microsoft\Robotics\v4.0\Microsoft.Ccr.Core.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Dss.Base, Version=4.0.261.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dependencies\Microsoft\Robotics\v4.0\Microsoft.Dss.Base.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Dss.Diagnostics, Version=4.0.261.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dependencies\Microsoft\Robotics\v4.0\Microsoft.Dss.Diagnostics.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Dss.Environment, Version=4.0.261.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dependencies\Microsoft\Robotics\v4.0\Microsoft.Dss.Environment.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Dss.Runtime, Version=4.0.261.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Dependencies\Microsoft\Robotics\v4.0\Microsoft.Dss.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Dss.Runtime.proxy, Version=4.0.261.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dependencies\Microsoft\Robotics\v4.0\Microsoft.Dss.Runtime.proxy.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Dss.Runtime.transform, Version=4.0.261.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dependencies\Microsoft\Robotics\v4.0\Microsoft.Dss.Runtime.transform.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Dss.Tools, Version=4.0.261.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Dependencies\Microsoft\Robotics\v4.0\Microsoft.Dss.Tools.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -71,10 +104,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ExceptionExtensions.cs" />
+    <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="NetworkExtensions.cs" />
     <Compile Include="MrdsToolkitConstants.cs" />
     <Compile Include="MrdsConstants.cs" />
     <Compile Include="PackageDeployerService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SecurityManager.cs" />
+    <Compile Include="TraceSourceTextWriter.cs" />
   </ItemGroup>
   <ItemGroup>
     <CodeAnalysisDictionary Include="..\Code Analysis Dictionary.xml">

@@ -29,6 +29,12 @@ namespace MrdsToolkit.Windows.ServiceHost
 
             // Initialize members
             _log = new TraceSource(MrdsToolkitConstants.ServiceHostTraceSourceName);
+
+            // Redirect console output (used explicitly by MRDS) to the central log (a standard trace source)
+            _consoleOutputWriter = new TraceSourceTextWriter(_log, TraceEventType.Information);
+            Console.SetOut(_consoleOutputWriter);
+            _consoleErrorWriter = new TraceSourceTextWriter(_log, TraceEventType.Error);
+            Console.SetError(_consoleErrorWriter);
         }
 
         /// <summary>
@@ -47,6 +53,10 @@ namespace MrdsToolkit.Windows.ServiceHost
                         _packageDeployer.Dispose();
 
                     // Close log (may hold locks)
+                    if (_consoleOutputWriter != null)
+                        _consoleOutputWriter.Close();
+                    if (_consoleErrorWriter != null)
+                        _consoleErrorWriter.Close();
                     if (_log != null)
                         _log.Close();
 
@@ -76,6 +86,16 @@ namespace MrdsToolkit.Windows.ServiceHost
         /// </summary>
         private readonly TraceSource _log;
 
+        /// <summary>
+        /// Console output writer which redirects to the log as information events.
+        /// </summary>
+        private readonly TraceSourceTextWriter _consoleOutputWriter;
+
+        /// <summary>
+        /// Console error writer which redirects to the log as error events.
+        /// </summary>
+        private readonly TraceSourceTextWriter _consoleErrorWriter;
+
         #endregion
 
         #region Event Handlers
@@ -85,25 +105,24 @@ namespace MrdsToolkit.Windows.ServiceHost
         /// </summary>
         protected override void OnStart(string[] args)
         {
-            // Un-comment the following section between the "---"'s to debug service start-up:
-            // -------------------------------------------------------------------------------
-#if DEBUG
-            // Wait for debugger attach (in DEBUG builds when "/debug" parameter is passed)
-            var waitSeconds = 30;
-            RequestAdditionalTime(15 * 60 * 1000);      // Long start timeout for debugging
-            while (waitSeconds-- > 0)
-            {
-                RequestAdditionalTime(1000);
-                Thread.Sleep(1000); // Set breakpoint here
-            }
-#endif
-            // -------------------------------------------------------------------------------
-
             // Start service...
             // No service start/success message logging is required because the AutoLog feature is enabled
             // and required to catch messages during .NET AppDomain creation, e.g. assembly load failure.
             try
             {
+                // Delay start when option is configured
+                var delay = Settings.Default.StartDelay;
+                while (delay-- > 0)
+                {
+                    RequestAdditionalTime(1000);
+                    Thread.Sleep(1000);             // Set breakpoint here to debug service start-up
+                }
+
+                // Set current directory to service executable path (default is system directory)
+                var programDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+                Debug.Assert(programDirectory != null);
+                Directory.SetCurrentDirectory(programDirectory);
+
                 // Get host name from configuration or local DNS name
                 var hostName = Settings.Default.HostName;
                 if (hostName != null)
@@ -112,21 +131,25 @@ namespace MrdsToolkit.Windows.ServiceHost
                     hostName.Equals("localhost", StringComparison.OrdinalIgnoreCase) ||
                     hostName.Equals("127.0.0.1", StringComparison.OrdinalIgnoreCase) ||
                     hostName.Equals("::1", StringComparison.OrdinalIgnoreCase))
-                    hostName = Dns.GetHostName();
+                    hostName = NetworkExtensions.GetFullHostName();
 
                 // Get root directory from configuration or service path
                 var rootDirectory = Settings.Default.PackageDeployerRootDirectory;
                 if (rootDirectory != null)
                     rootDirectory = rootDirectory.Trim();
-                if (String.IsNullOrWhiteSpace(rootDirectory))
-                {
-                    var serviceAssembly = Assembly.GetExecutingAssembly();
-                    rootDirectory = Path.GetDirectoryName(Path.GetFullPath(serviceAssembly.Location));
-                }
+                rootDirectory = !String.IsNullOrWhiteSpace(rootDirectory)
+                                    ? Path.Combine(programDirectory, rootDirectory)
+                                    : programDirectory;
+
+                // Get security settings
+                var security = SecurityManager.CreateDefault();
+                var securitySettings = SecurityManager.Serialize(security);
 
                 // Start Package Deployer
-                _packageDeployer = new PackageDeployerService(
-                    hostName, Settings.Default.PackageDeployerPort, rootDirectory);
+                RequestAdditionalTime(Settings.Default.ServiceStartTimeout * 1000);
+                _packageDeployer = new PackageDeployerService(hostName, Settings.Default.PackageDeployerPort,
+                                                              rootDirectory, true, securitySettings);
+                _packageDeployer.Error += OnHostedServiceError;
                 _packageDeployer.Start();
             }
             catch (ConfigurationException error)
@@ -157,17 +180,35 @@ namespace MrdsToolkit.Windows.ServiceHost
             {
                 // Stop services
                 if (_packageDeployer != null)
+                {
+                    RequestAdditionalTime(Settings.Default.ServiceStopTimeout * 1000);
                     _packageDeployer.Stop();
+                }
             }
             catch (Exception error)
             {
                 // Log failure
                 _log.TraceEvent(TraceEventType.Error, 0, Resources.ServiceFailedToStop,
                                 error.GetFullMessage(true));
-
-                // Re-throw exception to cause stop to fail
-                throw;
             }
+        }
+
+        #endregion
+
+        #region Private Methods
+
+        /// <summary>
+        /// Handles exceptions in hosted services, logging them as errors.
+        /// </summary>
+        private void OnHostedServiceError(object sender, UnhandledExceptionEventArgs args)
+        {
+            // Parse error message
+            var error = args.ExceptionObject as Exception;
+            if (error == null) throw new ArgumentOutOfRangeException("args");
+            var message = error.GetFullMessage(true);
+
+            // Log error
+            _log.TraceEvent(TraceEventType.Error, 0, message);
         }
 
         #endregion

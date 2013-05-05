@@ -32,6 +32,7 @@
     <DocumentationFile>bin\Debug\MicrosoftRoboticsServiceHost.xml</DocumentationFile>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
     <RunCodeAnalysis>true</RunCodeAnalysis>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -120,7 +121,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ExceptionExtensions.cs" />
+    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="ProjectInstaller.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -178,6 +179,32 @@
       <Project>{d3dd465c-d228-4240-a2b9-18c98ce8e94a}</Project>
       <Name>MrdsToolkit.Windows.Services</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="..\Dependencies\Microsoft\Robotics\v4.0\Microsoft.Dss.Runtime.dll">
+      <Link>Services\Package Deployer\Bin\Microsoft.Dss.Runtime.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Dependencies\Microsoft\Robotics\v4.0\Microsoft.Dss.Runtime.proxy.dll">
+      <Link>Services\Package Deployer\Bin\Microsoft.Dss.Runtime.proxy.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Dependencies\Microsoft\Robotics\v4.0\Microsoft.Dss.Runtime.transform.dll">
+      <Link>Services\Package Deployer\Bin\Microsoft.Dss.Runtime.transform.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Dependencies\Microsoft\Robotics\v4.0\PackageDeployer.Y2008.M01.dll">
+      <Link>Services\Package Deployer\Bin\PackageDeployer.Y2008.M01.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Dependencies\Microsoft\Robotics\v4.0\PackageDeployer.Y2008.M01.proxy.dll">
+      <Link>Services\Package Deployer\Bin\PackageDeployer.Y2008.M01.proxy.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Dependencies\Microsoft\Robotics\v4.0\PackageDeployer.Y2008.M01.transform.dll">
+      <Link>Services\Package Deployer\Bin\PackageDeployer.Y2008.M01.transform.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

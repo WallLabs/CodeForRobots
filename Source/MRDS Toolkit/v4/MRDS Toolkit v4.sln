@@ -35,6 +35,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "v4.0", "v4.0", "{550077A3-6
 		Dependencies\Microsoft\Robotics\v4.0\Microsoft.Dss.Runtime.proxy.dll = Dependencies\Microsoft\Robotics\v4.0\Microsoft.Dss.Runtime.proxy.dll
 		Dependencies\Microsoft\Robotics\v4.0\Microsoft.Dss.Runtime.transform.dll = Dependencies\Microsoft\Robotics\v4.0\Microsoft.Dss.Runtime.transform.dll
 		Dependencies\Microsoft\Robotics\v4.0\Microsoft.Dss.Tools.dll = Dependencies\Microsoft\Robotics\v4.0\Microsoft.Dss.Tools.dll
+		Dependencies\Microsoft\Robotics\v4.0\PackageDeployer.Y2008.M01.dll = Dependencies\Microsoft\Robotics\v4.0\PackageDeployer.Y2008.M01.dll
+		Dependencies\Microsoft\Robotics\v4.0\PackageDeployer.Y2008.M01.proxy.dll = Dependencies\Microsoft\Robotics\v4.0\PackageDeployer.Y2008.M01.proxy.dll
+		Dependencies\Microsoft\Robotics\v4.0\PackageDeployer.Y2008.M01.transform.dll = Dependencies\Microsoft\Robotics\v4.0\PackageDeployer.Y2008.M01.transform.dll
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "EN", "EN", "{70B7BDDC-D020-45CE-830E-9417038AA2E5}"
@@ -72,6 +75,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Icons", "Icons", "{35A4403F
 	ProjectSection(SolutionItems) = preProject
 		Images\Icons\MRDS Toolkit.ico = Images\Icons\MRDS Toolkit.ico
 	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{45826AB6-4F0E-49A9-9505-80D9E435F398}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Package Deployer", "Package Deployer", "{1AE24425-89D0-41AD-8F07-35FBD6FFE5A3}"
 EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
@@ -121,5 +128,6 @@ Global
 		{550077A3-6163-4435-A84B-3DBD8424801D} = {FB9CC949-1EAC-42C5-8AEC-8F63B6B2CF2E}
 		{70B7BDDC-D020-45CE-830E-9417038AA2E5} = {550077A3-6163-4435-A84B-3DBD8424801D}
 		{35A4403F-5009-4FD4-882F-5CBEFAD797F0} = {84509CD6-A1AD-43B7-878C-75B93F499346}
+		{1AE24425-89D0-41AD-8F07-35FBD6FFE5A3} = {45826AB6-4F0E-49A9-9505-80D9E435F398}
 	EndGlobalSection
 EndGlobal

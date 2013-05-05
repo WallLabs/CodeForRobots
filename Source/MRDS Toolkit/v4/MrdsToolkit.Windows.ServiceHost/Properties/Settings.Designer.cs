@@ -43,10 +43,49 @@ namespace MrdsToolkit.Windows.ServiceHost.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Services\\Package Deployer")]
         public string PackageDeployerRootDirectory {
             get {
                 return ((string)(this["PackageDeployerRootDirectory"]));
+            }
+        }
+        
+        /// <summary>
+        /// Hosted service stop timeout in seconds.
+        /// </summary>
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Configuration.SettingsDescriptionAttribute("Hosted service stop timeout in seconds.")]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("60")]
+        public int ServiceStopTimeout {
+            get {
+                return ((int)(this["ServiceStopTimeout"]));
+            }
+        }
+        
+        /// <summary>
+        /// Hosted service start timeout in seconds.
+        /// </summary>
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Configuration.SettingsDescriptionAttribute("Hosted service start timeout in seconds.")]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("120")]
+        public int ServiceStartTimeout {
+            get {
+                return ((int)(this["ServiceStartTimeout"]));
+            }
+        }
+        
+        /// <summary>
+        /// Delay before starting any services in seconds.
+        /// </summary>
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Configuration.SettingsDescriptionAttribute("Delay before starting any services in seconds.")]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("30")]
+        public int StartDelay {
+            get {
+                return ((int)(this["StartDelay"]));
             }
         }
     }
