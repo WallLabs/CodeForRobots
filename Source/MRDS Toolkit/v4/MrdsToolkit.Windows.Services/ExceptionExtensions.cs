@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text;
 
-namespace MrdsToolkit.Windows.ServiceHost
+namespace MrdsToolkit.Windows.Services
 {
     /// <summary>
     /// Contains extensions for working with Exceptions.

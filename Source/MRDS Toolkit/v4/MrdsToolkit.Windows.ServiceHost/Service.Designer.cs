@@ -13,7 +13,7 @@
             // 
             // Service
             // 
-            this.ServiceName = "MicrosoftRoboticsServiceHost";
+            this.ServiceName = "Microsoft Robotics Service Host";
 
         }
 

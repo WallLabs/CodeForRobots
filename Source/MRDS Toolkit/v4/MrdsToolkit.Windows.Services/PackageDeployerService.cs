@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Configuration;
 using System.IO;
-using System.Net;
+using System.Net.NetworkInformation;
+using Microsoft.Ccr.Core;
 using Microsoft.Dss.Core;
 
 namespace MrdsToolkit.Windows.Services
@@ -13,29 +15,48 @@ namespace MrdsToolkit.Windows.Services
         #region Lifetime
 
         /// <summary>
-        /// Creates an instance with the default configuration and the current root directory.
+        /// Creates an instance with the default configuration as specified in the
+        /// DSS runtime application settings section of this programs configuration file.
         /// </summary>
         public PackageDeployerService()
-            : this(Directory.GetCurrentDirectory())
+        {
+            var security = SecurityManager.CreateDefault();
+            _configuration = new DssRuntimeConfiguration {SecuritySettings = SecurityManager.Serialize(security)};
+        }
+
+        /// <summary>
+        /// Creates an instance with the default configuration, current directory as root and the
+        /// specified remote option.
+        /// </summary>
+        public PackageDeployerService(bool allowRemote, string securitySettings)
+            : this(Directory.GetCurrentDirectory(), allowRemote, securitySettings)
         {
         }
 
         /// <summary>
-        /// Creates an instance with the default configuration and the specified root dirctory..
+        /// Creates an instance with the default configuration with the specified root dirctory and remote option.
         /// </summary>
-        public PackageDeployerService(string rootDirectory)
-            : this(Dns.GetHostName(), MrdsConstants.PackageDeployerServiceDefaultPort, rootDirectory)
+        public PackageDeployerService(string rootDirectory, bool allowRemote, string securitySettings)
+            : this(NetworkExtensions.GetFullHostName(), MrdsConstants.PackageDeployerServiceDefaultPort, 
+            rootDirectory, allowRemote, securitySettings)
         {
         }
 
         /// <summary>
         /// Creates an instance with the specified parameters.
         /// </summary>
-        public PackageDeployerService(string hostName, int tcpPort, string rootDirectory)
+        public PackageDeployerService(string hostName, int tcpPort, string rootDirectory, 
+            bool allowRemote, string securitySettings)
         {
-            HostName = hostName;
-            TcpPort = tcpPort;
-            RootDirectory = rootDirectory;
+            // Override configuration options with our specific settings
+            ConfigurationManager.AppSettings[MrdsConstants.AllowRemoteAccessAppSettingName] = allowRemote.ToString();
+            _configuration = new DssRuntimeConfiguration
+            {
+                HostName = hostName,
+                PublicTcpPort = tcpPort,
+                HostRootDir = rootDirectory,
+                SecuritySettings = securitySettings,
+            };
         }
 
         /// <summary>
@@ -52,11 +73,21 @@ namespace MrdsToolkit.Windows.Services
         /// </summary>
         public void Dispose()
         {
-            // Dispose all resources (includign managed)
-            Dispose(true);
+            // Dispose only once
+            if (_disposed)
+                return;
+            _disposed = true;
 
-            // Suppress finaliazer as no longer necessary
-            GC.SuppressFinalize(this);
+            // Dispose all resources (including managed resources)
+            try
+            {
+                Dispose(true);
+            }
+            finally
+            {
+                // Suppress finaliazer as no longer necessary
+                GC.SuppressFinalize(this);
+            }
         }
 
         /// <summary>
@@ -75,7 +106,12 @@ namespace MrdsToolkit.Windows.Services
 
         #endregion
 
-        #region Public Properties
+        #region Private Fields
+
+        /// <summary>
+        /// Indicates this instance has already been disposed.
+        /// </summary>
+        private bool _disposed;
 
         /// <summary>
         /// Package Deployer service host.
@@ -83,19 +119,18 @@ namespace MrdsToolkit.Windows.Services
         private DssRuntimeLoader _host;
 
         /// <summary>
-        /// Host name of the DSS host, used by remote nodes to callback the service.
+        /// Configuration used to start the host.
         /// </summary>
-        public string HostName { get; private set; }
+        private readonly DssRuntimeConfiguration _configuration;
+
+        #endregion
+
+        #region Public Events
 
         /// <summary>
-        /// TCP port of the service.
+        /// Thrown when the <see cref="DssRuntimeLoader.UserTaskQueue"/>'s <see cref="DispatcherQueue.UnhandledException"/> event is fired.
         /// </summary>
-        public int TcpPort { get; private set; }
-
-        /// <summary>
-        /// Working directory for the DSS host, used to resolve relative paths accessed by services.
-        /// </summary>
-        public string RootDirectory { get; private set; }
+        public event UnhandledExceptionEventHandler Error;
 
         #endregion
 
@@ -106,13 +141,17 @@ namespace MrdsToolkit.Windows.Services
         /// </summary>
         public void Start()
         {
-            var configuration = new DssRuntimeConfiguration
-            {
-                HostName = HostName,
-                PublicTcpPort = TcpPort,
-                HostRootDir = RootDirectory
-            };
-            _host = new DssRuntimeLoader(configuration);
+            // Initialize host
+            PrepareServiceDirectory(_configuration.HostRootDir);
+             _host = new DssRuntimeLoader(_configuration);
+            _host.UserTaskQueue.UnhandledException += (sender, args) =>
+                {
+                    // Bubble error event
+                    if (Error != null)
+                        Error(sender, args);
+                };
+
+            // Initialize service
             _host.InitializeByContract(new Uri(MrdsConstants.PackageDeployerServiceContractUri));
         }
 
@@ -121,9 +160,32 @@ namespace MrdsToolkit.Windows.Services
         /// </summary>
         public void Stop()
         {
+            // Do nothing when not running
+            if (_host == null) return;
+
             // Stop services
-            if (_host != null)
-                _host.WaitForShutdown();
+            _host.Dispose();
+        }
+
+        #endregion
+
+        #region Private Methods
+
+        /// <summary>
+        /// Checks a service directory is ready to start.
+        /// Ensure subdirectories are created for which the DSS host throws errors on the first pass when they do not exist.
+        /// </summary>
+        private void PrepareServiceDirectory(string path)
+        {
+            // Create the store subdirectory if it doesn't exist
+            var storeDirectory = Path.Combine(path, LayoutPaths.StoreDir);
+            if (!Directory.Exists(storeDirectory))
+                Directory.CreateDirectory(storeDirectory);
+
+            // Create the security settings file if it doesn't exist
+            var securityFilePath = Path.Combine(storeDirectory, MrdsConstants.SecuritySettingsFileName);
+            if (!File.Exists(securityFilePath))
+                File.WriteAllText(securityFilePath, _configuration.SecuritySettings);
         }
 
         #endregion

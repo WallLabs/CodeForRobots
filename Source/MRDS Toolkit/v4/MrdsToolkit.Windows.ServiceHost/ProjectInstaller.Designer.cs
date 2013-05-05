@@ -30,6 +30,7 @@
         {
             this._processInstaller = new System.ServiceProcess.ServiceProcessInstaller();
             this._installer = new System.ServiceProcess.ServiceInstaller();
+            this._eventLogInstaller = new System.Diagnostics.EventLogInstaller();
             // 
             // _processInstaller
             // 
@@ -43,11 +44,21 @@
             this._installer.DisplayName = "Microsoft Robotics Service Host";
             this._installer.ServiceName = "MicrosoftRoboticsServiceHost";
             // 
+            // _eventLogInstaller
+            // 
+            this._eventLogInstaller.CategoryCount = 0;
+            this._eventLogInstaller.CategoryResourceFile = null;
+            this._eventLogInstaller.Log = "Application";
+            this._eventLogInstaller.MessageResourceFile = null;
+            this._eventLogInstaller.ParameterResourceFile = null;
+            this._eventLogInstaller.Source = "Microsoft Robotics Service Host";
+            // 
             // ProjectInstaller
             // 
             this.Installers.AddRange(new System.Configuration.Install.Installer[] {
             this._processInstaller,
-            this._installer});
+            this._installer,
+            this._eventLogInstaller});
 
         }
 
@@ -55,5 +66,6 @@
 
         private System.ServiceProcess.ServiceProcessInstaller _processInstaller;
         private System.ServiceProcess.ServiceInstaller _installer;
+        private System.Diagnostics.EventLogInstaller _eventLogInstaller;
     }
 }
