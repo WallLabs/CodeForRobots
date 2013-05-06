@@ -20,7 +20,7 @@ namespace MrdsToolkit.Windows.Services
             // Core settings require authentication and signed assemblies
             var security = new SecuritySettings
             {
-                AuthenticationRequired = false,
+                AuthenticationRequired = true,
                 OnlySignedAssemblies = false
             };
 
@@ -36,8 +36,29 @@ namespace MrdsToolkit.Windows.Services
                                     SddlSid = "S-1-5-10",
                                     UserName = @"NT AUTHORITY\SELF",
                                     Inherit = true
-                                }
-                        }
+                                },
+                            new UserPermission
+                                {
+                                    Rights = DsspRights.All,
+                                    SddlSid = "S-1-5-20",
+                                    UserName = @"NT AUTHORITY\NETWORK SERVICE",
+                                    Inherit = true
+                                },
+                            new UserPermission
+                                {
+                                    Rights = DsspRights.All,
+                                    SddlSid = "S-1-5-21-1758145031-3811154930-340136739-7101",
+                                    UserName = @"CODECHIEF\CCOFFICEHOST$",
+                                    Inherit = true
+                                },
+                            new UserPermission
+                                {
+                                    Rights = DsspRights.All,
+                                    SddlSid = "S-1-5-21-3455466291-983020636-294803880-1104",
+                                    UserName = @"WALL\Tony",
+                                    Inherit = true
+                                }                       
+                        },
                 });
 
             // Create an administrator role with full access and local administrators as members
@@ -70,10 +91,25 @@ namespace MrdsToolkit.Windows.Services
                                 {
                                     SddlSid = "S-1-5-32-545",
                                     UserName = @"BUILTIN\Users"
-                                }
+                                },
+                            new RoleUser
+                                {
+                                    SddlSid = "S-1-5-20",
+                                    UserName = @"NT AUTHORITY\NETWORK SERVICE"
+                                },
+                            new RoleUser
+                                {
+                                    SddlSid = "S-1-5-21-1758145031-3811154930-340136739-7101",
+                                    UserName = @"CODECHIEF\CCOFFICEHOST$"
+                                },
+                            new RoleUser
+                                {
+                                    SddlSid = "S-1-5-21-3455466291-983020636-294803880-1104",
+                                    UserName = @"WALL\Tony"
+                                },
                         }
             });
-
+            
             // Return result
             return security;
         }

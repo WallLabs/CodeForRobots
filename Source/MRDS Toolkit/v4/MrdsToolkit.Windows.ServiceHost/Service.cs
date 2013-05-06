@@ -3,7 +3,6 @@ using System.ComponentModel;
 using System.Configuration;
 using System.Diagnostics;
 using System.IO;
-using System.Net;
 using System.Reflection;
 using System.ServiceProcess;
 using System.Threading;

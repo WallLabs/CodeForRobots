@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.Configuration;
 using System.IO;
-using System.Net.NetworkInformation;
 using Microsoft.Ccr.Core;
 using Microsoft.Dss.Core;
+using Microsoft.Dss.Services.Forwarders;
+using Microsoft.Dss.Services.Transports;
 
 namespace MrdsToolkit.Windows.Services
 {
@@ -48,6 +50,26 @@ namespace MrdsToolkit.Windows.Services
         public PackageDeployerService(string hostName, int tcpPort, string rootDirectory, 
             bool allowRemote, string securitySettings)
         {
+            // Validate
+            if (String.IsNullOrWhiteSpace(hostName)) 
+                throw new ArgumentNullException("hostName");
+            if (tcpPort <= 0) 
+                throw new ArgumentOutOfRangeException("tcpPort");
+            if (String.IsNullOrWhiteSpace(rootDirectory))
+            {
+                // Use current directory when root not specified
+                rootDirectory = Directory.GetCurrentDirectory();
+            }
+            else
+            {
+                // Expand, check and create path when specified
+                rootDirectory = Path.GetFullPath(rootDirectory);
+                if (!Directory.Exists(rootDirectory))
+                    Directory.CreateDirectory(rootDirectory);
+            }
+            if (String.IsNullOrWhiteSpace(securitySettings))
+                throw new ArgumentNullException("securitySettings");
+
             // Override configuration options with our specific settings
             ConfigurationManager.AppSettings[MrdsConstants.AllowRemoteAccessAppSettingName] = allowRemote.ToString();
             _configuration = new DssRuntimeConfiguration
@@ -55,7 +77,7 @@ namespace MrdsToolkit.Windows.Services
                 HostName = hostName,
                 PublicTcpPort = tcpPort,
                 HostRootDir = rootDirectory,
-                SecuritySettings = securitySettings,
+                SecuritySettings = securitySettings
             };
         }
 
