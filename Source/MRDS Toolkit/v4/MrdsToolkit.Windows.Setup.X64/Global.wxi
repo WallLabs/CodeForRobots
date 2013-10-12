@@ -6,7 +6,7 @@
   <!-- Product Information -->
   <?define ManufacturerName = "Code for Robots" ?>
   <?define ProductName = "MRDS Toolkit" ?>
-  <?define ProductVersion = "4.0.1310.12003" ?>
+  <?define ProductVersion = "4.0.1310.12004" ?>
   <?define UpgradeCode = "{CDC72189-6C3D-485A-91ED-EA5C5EC391F8}" ?>
 
   <!-- Dynamic Processor Specific Variables (X64 or X86) -->
