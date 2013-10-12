@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections.ObjectModel;
 using System.Configuration;
 using System.IO;
+using CodeForDotNet.Full.Net;
 using Microsoft.Ccr.Core;
 using Microsoft.Dss.Core;
-using Microsoft.Dss.Services.Forwarders;
-using Microsoft.Dss.Services.Transports;
 
 namespace MrdsToolkit.Windows.Services
 {

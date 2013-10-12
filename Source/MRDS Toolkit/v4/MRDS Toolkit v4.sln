@@ -1,6 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 2013
+VisualStudioVersion = 12.0.20827.3
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A6DE53D1-C91A-4CF0-860D-3FBBFDCD5795}"
 	ProjectSection(SolutionItems) = preProject
 		Build.cmd = Build.cmd
@@ -17,6 +19,16 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Dependencies", "Dependencies", "{70EF24B2-B1CB-4085-BAF3-5A3F24B08492}"
+	ProjectSection(SolutionItems) = preProject
+		Dependencies\Code for .NET Release Notes.rtf = Dependencies\Code for .NET Release Notes.rtf
+		Dependencies\Code for Windows Release Notes.rtf = Dependencies\Code for Windows Release Notes.rtf
+		Dependencies\CodeForDotNet.dll = Dependencies\CodeForDotNet.dll
+		Dependencies\CodeForDotNet.Full.dll = Dependencies\CodeForDotNet.Full.dll
+		Dependencies\CodeForDotNet.Full.xml = Dependencies\CodeForDotNet.Full.xml
+		Dependencies\CodeForDotNet.xml = Dependencies\CodeForDotNet.xml
+		Dependencies\Update.cmd = Dependencies\Update.cmd
+		Dependencies\Version.psm1 = Dependencies\Version.psm1
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Microsoft", "Microsoft", "{B3D06457-EB24-4EC5-8C06-5DFF43CA4A43}"
 EndProject
