@@ -6,6 +6,7 @@ using System.IO;
 using System.Reflection;
 using System.ServiceProcess;
 using System.Threading;
+using CodeForDotNet.Full.Net;
 using MrdsToolkit.Windows.ServiceHost.Properties;
 using MrdsToolkit.Windows.Services;
 
