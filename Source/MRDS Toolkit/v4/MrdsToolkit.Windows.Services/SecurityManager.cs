@@ -43,21 +43,7 @@ namespace MrdsToolkit.Windows.Services
                                     SddlSid = "S-1-5-20",
                                     UserName = @"NT AUTHORITY\NETWORK SERVICE",
                                     Inherit = true
-                                },
-                            new UserPermission
-                                {
-                                    Rights = DsspRights.All,
-                                    SddlSid = "S-1-5-21-1758145031-3811154930-340136739-7101",
-                                    UserName = @"CODECHIEF\CCOFFICEHOST$",
-                                    Inherit = true
-                                },
-                            new UserPermission
-                                {
-                                    Rights = DsspRights.All,
-                                    SddlSid = "S-1-5-21-3455466291-983020636-294803880-1104",
-                                    UserName = @"WALL\Tony",
-                                    Inherit = true
-                                }                       
+                                } 
                         },
                 });
 
@@ -96,17 +82,7 @@ namespace MrdsToolkit.Windows.Services
                                 {
                                     SddlSid = "S-1-5-20",
                                     UserName = @"NT AUTHORITY\NETWORK SERVICE"
-                                },
-                            new RoleUser
-                                {
-                                    SddlSid = "S-1-5-21-1758145031-3811154930-340136739-7101",
-                                    UserName = @"CODECHIEF\CCOFFICEHOST$"
-                                },
-                            new RoleUser
-                                {
-                                    SddlSid = "S-1-5-21-3455466291-983020636-294803880-1104",
-                                    UserName = @"WALL\Tony"
-                                },
+                                }
                         }
             });
             
